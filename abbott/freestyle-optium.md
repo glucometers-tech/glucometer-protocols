@@ -7,6 +7,9 @@ Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
 The FreeStyle Optium device is a glucometer that can also read special β-ketones
 testing strips. This will become clear in the protocol description.
 
+There is no option to clear the meter's memory from the *FreeStyle Auto-Assist*
+software provided by Abbott.
+
 ## Cable
 
 The Abbott FreeStyle Optium device uses a special cable, that connects
