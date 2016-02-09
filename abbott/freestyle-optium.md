@@ -176,6 +176,21 @@ as previous devices, in which month names are truncated to three letters and
 followed by a space character, with the exclusions of `June` and `July` which
 are written in full. This behaviour is not present in the `$colq` response.
 
+## Missing information
+
+As the analyzed logs used to compile this specification are minimal, there are
+currently a number of "known unknowns". If anyone is able to provide further
+information, it would be welcome.
+
+ * Behaviour of the device when no results are stored; since there is no command
+   to reset the device's memory this is not currently known.
+ * Expected constant to indicate the device reports values in mg/dL on its
+   screen.
+ * Whether a `LO` constant exists to match the `HI` constant. **Dangerous! Don't
+   try this yourself, only report back if you happen to have triggered it!**
+ * How the β-ketones results are reported by the device.
+ * How the control solution results are reported by the device.
+
 ## References
 
 * [TIUSB3410 datasheet](http://www.ti.com/lit/ds/symlink/tusb3410.pdf)
