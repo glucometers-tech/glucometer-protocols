@@ -32,11 +32,11 @@ any CDB (Command Block) with non-default flags set.
 Message, both sent and received, in any of the registers follow the
 same structure:
 
-	const uint8_t STX = 0x02;
-	uint8_t length;
-	char[length-5] message; // includes preamble, length and checksum
-	const uint8_t ETX = 0x03;
-	le_uint16_t checksum; // CRC-CCITT 0xFFFF
+    const uint8_t STX = 0x02;
+    uint8_t length;
+    char[length-5] message; // includes preamble, length and checksum
+    const uint8_t ETX = 0x03;
+    le_uint16_t checksum; // CRC-CCITT 0xFFFF
 
 The messages are variable length, with the length stated in the second
 byte of the message; `length` in this case is calculated until the end
@@ -52,7 +52,31 @@ Easy protocol.
 
 ## Messages
 
-Messages are not currently understood, further information to follow.
+Messages are binary, and only some are related to each other in any
+obvious way.
+
+### Information query (serial, software, …)
+
+    query-request = STX %x0a ; message length = 10 bytes
+                    %x00 %x04 %xE6 %x02 query-selector
+                    ETX checksum
+
+    query-selector = query-selector-serial /
+                     query-selector-model /
+                     query-selector-software /
+                     query-selector-unknown
+    query-selector-serial = %x00
+    query-selector-model = %x01
+    query-selector-software = %x02
+    query-selector-unknown = %x03
+
+The reply starts with what appears an arbitrary pair of bytes, and
+then follows with what appears to be a UTF-16-BE string, null
+terminated (except for the `query-selector-unknown` response.)
+
+    query-response = STX length
+                     %x00 %x04 %x06 *WCHAR-BE
+                     ETX checksum
 
 ## Date/time format
 
