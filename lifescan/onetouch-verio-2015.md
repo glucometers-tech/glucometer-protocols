@@ -143,9 +143,10 @@ the latest reading.
                            %x04 %x06 inverse-record-number %x00 unknown-counter
                            timestamp glucose-value flags %x0b %x00
                            ETX checksum
+
     inverse-record-number = 2OCTET ; 16-bit little-endian value
-    unknown-counter = 2OCTET ; 16-bit little-endian value
-    glucose-value = 4OCTET ; 32-bit little-endian value
+    unknown-counter = 2OCTET       ; 16-bit little-endian value
+    glucose-value = 4OCTET         ; 32-bit little-endian value
     flags = OCTET
 
 The inverse record number seem to provide a sequence of readings, it
