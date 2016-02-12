@@ -61,7 +61,7 @@ obvious way.
 
 A single message with a byte specification provides information on the
 hardware device. The request is sent through, and the response read
-from, `lba03`.
+from, `lba3`.
 
     query-request = STX %x0a %x00 ; message length = 10 bytes
                     %x04 %xE6 %x02 query-selector
@@ -88,7 +88,25 @@ It is interesting to note the usage of big endian wide characters, as
 the rest of the protocol is little endian. This is probably due to
 Unicode specifying BE being the default.
 
-## Date/time format
+### Device time
+
+The request to query the device time is fairly simple, and is
+communicated through `lba3`:
+
+	time-request = STX %x09 %x00 ; message length = 9 bytes
+	               %x04 %x20 %x02
+	               ETX checksum
+
+    time-response = STX %x0c %x00 ; message length = 12 bytes
+                    %x04 %x06 timestamp
+                    ETX checksum
+
+    timestamp = 4OCTET
+
+See [timestamp format](#timestamp-format) the details of timestamp
+handling for this device.
+
+## Timestamp format
 
 The protocol define a point in time (for the current device clock, or
 the timestamp of a reading), as a little-endian four-bytes count of
