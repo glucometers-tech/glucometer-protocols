@@ -59,6 +59,10 @@ obvious way.
 
 ### Information query (serial, software, …)
 
+A single message with a byte specification provides information on the
+hardware device. The request is sent through, and the response read
+from, `lba03`.
+
     query-request = STX %x0a %x00 ; message length = 10 bytes
                     %x04 %xE6 %x02 query-selector
                     ETX checksum
