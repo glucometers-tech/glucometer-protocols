@@ -103,8 +103,15 @@ communicated through `lba3`:
 
     timestamp = 4OCTET ; 32-bit little-endian value
 
-See [timestamp format](#timestamp-format) the details of timestamp
-handling for this device.
+### Timestamp format
+
+Timestamp, both for the device's clock and for the reading records, is
+defined as a little-endian 32-bit number, representing the number of
+seconds since **2000-01-01 00:00:00**.
+
+It should not be mistaken for a UNIX timestamp, although the format is
+compatible. To convert to UNIX timestamp, you should add `946684800`
+to the value (the UNIX timestamp of the device's own epoch.)
 
 ### Record access
 
@@ -174,12 +181,3 @@ whole blood) and the measurement site (fingertip), as those are
 visible in the original software's UI. Meal information might also be
 present. OneTouch Ultra2 provided a simple mapping of meal and comment
 codes.
-
-## Timestamp format
-
-The protocol define a point in time (for the current device clock, or
-the timestamp of a reading), as a little-endian four-bytes count of
-seconds since **01/01/2000 @ 00:00**.
-
-This differs from the otherwise similar UltraEasy protocol, that uses
-the UNIX Epoch of **01/01/1970 @ 00:00**.
