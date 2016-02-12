@@ -33,14 +33,16 @@ Message, both sent and received, in any of the registers follow the
 same structure:
 
     const uint8_t STX = 0x02;
-    uint8_t length;
-    char[length-5] message; // includes preamble, length and checksum
+    uint16_t length; // little endian
+    char[length-6] message; // length includes preamble, length and checksum
     const uint8_t ETX = 0x03;
     le_uint16_t checksum; // CRC-CCITT 0xFFFF
 
 The messages are variable length, with the length stated in the second
 byte of the message; `length` in this case is calculated until the end
-of the checksum.
+of the checksum. Even though length appears to be 16-bit in length,
+none of the known messages appear to take more than a single byte
+length. The register size also limits the maximum length to `0x100`.
 
 The `STX` and `ETX` constants to mark start and end of the message
 match the constants used in the OneTouch Ultra Easy serial protocol,
@@ -57,8 +59,8 @@ obvious way.
 
 ### Information query (serial, software, …)
 
-    query-request = STX %x0a ; message length = 10 bytes
-                    %x00 %x04 %xE6 %x02 query-selector
+    query-request = STX %x0a %x00 ; message length = 10 bytes
+                    %x04 %xE6 %x02 query-selector
                     ETX checksum
 
     query-selector = query-selector-serial /
@@ -75,8 +77,12 @@ then follows with what appears to be a UTF-16-BE string, null
 terminated (except for the `query-selector-unknown` response.)
 
     query-response = STX length
-                     %x00 %x04 %x06 *WCHAR-BE
+                     %x04 %x06 *WCHAR-BE
                      ETX checksum
+
+It is interesting to note the usage of big endian wide characters, as
+the rest of the protocol is little endian. This is probably due to
+Unicode specifying BE being the default.
 
 ## Date/time format
 
