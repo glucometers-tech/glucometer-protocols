@@ -93,18 +93,86 @@ Unicode specifying BE being the default.
 The request to query the device time is fairly simple, and is
 communicated through `lba3`:
 
-	time-request = STX %x09 %x00 ; message length = 9 bytes
-	               %x04 %x20 %x02
-	               ETX checksum
+    time-request = STX %x09 %x00 ; message length = 9 bytes
+                   %x04 %x20 %x02
+                   ETX checksum
 
     time-response = STX %x0c %x00 ; message length = 12 bytes
                     %x04 %x06 timestamp
                     ETX checksum
 
-    timestamp = 4OCTET
+    timestamp = 4OCTET ; 32-bit little-endian value
 
 See [timestamp format](#timestamp-format) the details of timestamp
 handling for this device.
+
+### Record access
+
+Access to the records in the device's memory is done by requesting
+them singularly (similar to the UltraEasy protocol). This requires
+first querying for the number of records present.
+
+The following messages correspond to request and response for the
+number of records in memory. The messages are transmitted over `lba3`.
+
+    record-count-request = STX %x09 %x00 ; message length = 9 bytes
+                           %x04 %x27 %x00
+                           ETX checksum
+
+    record-count-response = STX %x.. %x00 ; message length =
+                            %x04 %x06 message-count
+                            ETX checksum
+    message-count = 2OCTET ; 16-bit little-endian value
+
+The message IDs are then accessed through indexes between 0 and
+`message-count` (excluded):
+
+    read-record-request = STX %x0c %x00 ; message length = 12 bytes
+                          %x04 %x31 %x02 record-number %x00
+                          ETX checksum
+    record-number = 2OCTET ; 16-bit little-endian value
+
+The record number is assumed to be a 16-bit little endian value, even
+though this couldn't be confirmed with a device with more than 256
+records, it would be consistent with the UltraEasy protocol.
+
+Records are stored in descending time order, which means record `0` is
+the latest reading.
+
+    read-record-response = STX %0. %x00 ; message length =
+                           %x04 %x06 inverse-record-number %x00 unknown-counter
+                           timestamp glucose-value flags %x0b %x00
+                           ETX checksum
+    inverse-record-number = 2OCTET ; 16-bit little-endian value
+    unknown-counter = 2OCTET ; 16-bit little-endian value
+    glucose-value = 4OCTET ; 32-bit little-endian value
+    flags = OCTET
+
+The inverse record number seem to provide a sequence of readings, it
+would be interesting to compare its value for a reader that exceeded
+its storage memory.
+
+An unknown counter, also proceeding backward is present, which is
+offset to the inverse record number. Different meters appear to have
+different offsets.
+
+The glucose value is represented as a 32-bit little endian value, to
+continue the similarities with the UltraEasy device. It represent the
+blood sugar in mg/dL. As most other meters, the eventual conversion to
+mmol/L happens only at display time.
+
+The flags are not currently well understood; the device allows setting
+comments on the readings, but these responses are not visible from the
+interface of the device itself; a "speech bubble" appears, steady or
+blinking, on some of the readings instead. The original software does
+not seem to expose the data correctly either.
+
+At least two information are likely to be found in these flags, or in
+the following constant `0x0b` byte: the type of measurement (plasma v
+whole blood) and the measurement site (fingertip), as those are
+visible in the original software's UI. Meal information might also be
+present. OneTouch Ultra2 provided a simple mapping of meal and comment
+codes.
 
 ## Timestamp format
 
