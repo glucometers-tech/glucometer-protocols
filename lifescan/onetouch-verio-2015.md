@@ -27,29 +27,76 @@ The registers are accessed through SCSI commands **WRITE(10)** and
 **READ(10)**. Raw commands seem to be required, as the device rejects
 any CDB (Command Block) with non-default flags set.
 
+No knock sequence is needed to initiate communication.
+
+## Identification
+
+Since the device communicates by what would otherwise be a destructive
+change to its storage, it is important that the commands are not
+issued to a non-compatible device, as they might damage the partition
+table of an external storage device.
+
+It is possible to identify the device by inspecting either the USB
+Device descriptor, or issuing a SCSI **INQUIRY** command.
+
+### USB identification
+
+In the USB descriptor, the device will report an *Interface
+descriptor* as such:
+
+    bInterfaceClass         8 Mass Storage
+    bInterfaceSubClass      6 SCSI
+    bInterfaceProtocol     80 Bulk-Only
+    iInterface              7 LifeScan MSC
+
+The `LifeScan MSC` string identifies the mass-storage controller
+protocol as being non-standard.
+
+The USB `iProduct` and `iSerial` are also matching the information
+reported by the LifeScan communication protocol.
+
+### SCSI identification
+
+At the SCSI level, the device will report a *Vendor identification*
+string of `LifeScan`:
+
+    Vendor identification: LifeScan
+    Product identification:
+    Product revision level:
+    Unit serial number:
+
+Note that while the USB protocol information (product, serial number)
+match the device's information, only the vendor identification is
+visible in response to the **INQUIRY** command.
+
 ## Message structure
 
 Message, both sent and received, in any of the registers follow the
 same structure:
 
-    const uint8_t STX = 0x02;
-    uint16_t length; // little endian
-    char[length-6] message; // length includes preamble, length and checksum
-    const uint8_t ETX = 0x03;
-    le_uint16_t checksum; // CRC-CCITT 0xFFFF
+    message = STX length message ETX checksum
+    STX = %x02
+    length = 2OCTET             ; 16-bit little-endian value
+    message = [length - 6]OCTET
+    ETX = %x03
+    checksum = 2OCTET           ; 16-bit little-endian value
 
-The messages are variable length, with the length stated in the second
-byte of the message; `length` in this case is calculated until the end
-of the checksum. Even though length appears to be 16-bit in length,
-none of the known messages appear to take more than a single byte
-length. The register size also limits the maximum length to `0x100`.
+The messages are variable length, with the length provided by the
+16-bit word following the `STX` constant. The value of length includes
+the STX/ETX constants, the length itself and the checksum, leaving the
+body of the message 6 bytes short.
+
+While no command has been recorded using more than 255 bytes, the
+length is assumed to be 16-bit to match out of band information in the
+original software's debug logs. The size of the register also makes
+the maximum lenght of the command 512 bytes (0x200).
 
 The `STX` and `ETX` constants to mark start and end of the message
 match the constants used in the OneTouch Ultra Easy serial protocol,
 and are thus named the same way as in its specs.
 
-The checksum itself is a variant of CRC-16-CCITT, seeded at `0xFFFF`,
-and stored little-endian, again the same as used in the OneTouch Ultra
+The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and
+stored little-endian, again the same as used in the OneTouch Ultra
 Easy protocol.
 
 ## Messages
