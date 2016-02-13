@@ -110,13 +110,24 @@ Easy protocol.
 Messages are binary, and only some are related to each other in any
 obvious way.
 
-### Information query (serial, software, …)
+The commands have been named after their function, in the style of
+SCSI commands:
+
+ * **QUERY** to retrieve information on the device (serial number,
+   device model, etc.)
+ * **GETTIME** to retrieve current RTC time of the device.
+ * **SETTIME** to change the RTC time fo the device.
+ * **READ RECORD COUNT** to retrieve the number of records in the
+   device's memory.
+ * **READ RECORD** to retrieve the content of one record.
+
+### QUERY
 
 A single message with a byte specification provides information on the
 hardware device. The request is sent through, and the response read
 from, `lba3`.
 
-    query-request = STX %x0a %x00 ; message length = 10 bytes
+    QUERY-request = STX %x0a %x00 ; message length = 10 bytes
                     %x04 %xE6 %x02 query-selector
                     ETX checksum
 
@@ -133,7 +144,7 @@ The reply starts with what appears an arbitrary pair of bytes, and
 then follows with what appears to be a UTF-16-BE string, null
 terminated (except for the `query-selector-unknown` response.)
 
-    query-response = STX length
+    QUERY-response = STX length
                      %x04 %x06 *WCHAR-BE
                      ETX checksum
 
@@ -141,18 +152,18 @@ It is interesting to note the usage of big endian wide characters, as
 the rest of the protocol is little endian. This is probably due to
 Unicode specifying BE being the default.
 
-### Device time
+### GETTIME
 
 The request to query the device time is fairly simple, and is
 communicated through `lba3`:
 
-    time-request = STX %x09 %x00 ; message length = 9 bytes
-                   %x04 %x20 %x02
-                   ETX checksum
+    GETTIME-request = STX %x09 %x00 ; message length = 9 bytes
+                      %x04 %x20 %x02
+                      ETX checksum
 
-    time-response = STX %x0c %x00 ; message length = 12 bytes
-                    %x04 %x06 timestamp
-                    ETX checksum
+    GETTIME-response = STX %x0c %x00 ; message length = 12 bytes
+                       %x04 %x06 timestamp
+                       ETX checksum
 
     timestamp = 4OCTET ; 32-bit little-endian value
 
@@ -166,7 +177,7 @@ It should not be mistaken for a UNIX timestamp, although the format is
 compatible. To convert to UNIX timestamp, you should add `946684800`
 to the value (the UNIX timestamp of the device's own epoch.)
 
-### Record access
+### READ RECORD COUNT and READ RECORD
 
 Access to the records in the device's memory is done by requesting
 them singularly (similar to the UltraEasy protocol). This requires
@@ -175,19 +186,19 @@ first querying for the number of records present.
 The following messages correspond to request and response for the
 number of records in memory. The messages are transmitted over `lba3`.
 
-    record-count-request = STX %x09 %x00 ; message length = 9 bytes
-                           %x04 %x27 %x00
-                           ETX checksum
+    READ-RECORD-COUNT-request = STX %x09 %x00 ; message length = 9 bytes
+                                %x04 %x27 %x00
+                                ETX checksum
 
-    record-count-response = STX %x.. %x00 ; message length =
-                            %x04 %x06 message-count
-                            ETX checksum
+    READ-RECORD-COUNT-response = STX %x.. %x00 ; message length =
+                                 %x04 %x06 message-count
+                                 ETX checksum
     message-count = 2OCTET ; 16-bit little-endian value
 
 The message IDs are then accessed through indexes between 0 and
 `message-count` (excluded):
 
-    read-record-request = STX %x0c %x00 ; message length = 12 bytes
+    READ-RECORD-request = STX %x0c %x00 ; message length = 12 bytes
                           %x04 %x31 %x02 record-number %x00
                           ETX checksum
     record-number = 2OCTET ; 16-bit little-endian value
@@ -199,7 +210,7 @@ records, it would be consistent with the UltraEasy protocol.
 Records are stored in descending time order, which means record `0` is
 the latest reading.
 
-    read-record-response = STX %0. %x00 ; message length =
+    READ-RECORD-response = STX %0. %x00 ; message length =
                            %x04 %x06 inverse-record-number %x00 unknown-counter
                            timestamp glucose-value flags %x0b %x00
                            ETX checksum
