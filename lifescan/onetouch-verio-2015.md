@@ -33,6 +33,12 @@ The registers are accessed through SCSI commands **WRITE(10)** and
 **READ(10)**. Raw commands seem to be required, as the device rejects
 any CDB (Command Block) with non-default flags set.
 
+There does not appear to be any specific requirement of timing between
+the **WRITE(10)** command the subsequent **READ(10)**. The response
+for a given request is read from the same register it has been written
+to. Message are specific to one register and will not work if written
+to a different register.
+
 No knock sequence is needed to initiate communication.
 
 ## Identification
