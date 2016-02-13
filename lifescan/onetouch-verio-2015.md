@@ -167,7 +167,7 @@ communicated through `lba3`:
 
     timestamp = 4OCTET ; 32-bit little-endian value
 
-### Timestamp format
+#### Timestamp format
 
 Timestamp, both for the device's clock and for the reading records, is
 defined as a little-endian 32-bit number, representing the number of
@@ -177,11 +177,7 @@ It should not be mistaken for a UNIX timestamp, although the format is
 compatible. To convert to UNIX timestamp, you should add `946684800`
 to the value (the UNIX timestamp of the device's own epoch.)
 
-### READ RECORD COUNT and READ RECORD
-
-Access to the records in the device's memory is done by requesting
-them singularly (similar to the UltraEasy protocol). This requires
-first querying for the number of records present.
+### READ RECORD COUNT
 
 The following messages correspond to request and response for the
 number of records in memory. The messages are transmitted over `lba3`.
@@ -195,23 +191,26 @@ number of records in memory. The messages are transmitted over `lba3`.
                                  ETX checksum
     message-count = 2OCTET ; 16-bit little-endian value
 
-The message IDs are then accessed through indexes between 0 and
-`message-count` (excluded):
+### READ RECORD
+
+The records are then accessed through indexes between 0 and
+`message-count` (excluded) as reported by READ RECORD COUNT.
 
     READ-RECORD-request = STX %x0c %x00 ; message length = 12 bytes
                           %x04 %x31 %x02 record-number %x00
                           ETX checksum
     record-number = 2OCTET ; 16-bit little-endian value
 
-The record number is assumed to be a 16-bit little endian value, even
-though this couldn't be confirmed with a device with more than 256
-records, it would be consistent with the UltraEasy protocol.
+The record number is assumed to be a 16-bit little endian value, as
+the Verio 2015 is reported to store up to 500 results. It is also
+consistent with the UltraEasy protocol.
 
 Records are stored in descending time order, which means record `0` is
 the latest reading.
 
     READ-RECORD-response = STX %0. %x00 ; message length =
-                           %x04 %x06 inverse-record-number %x00 unknown-counter
+                           %x04 %x06 inverse-record-number
+                           %x00 unknown-counter
                            timestamp glucose-value flags %x0b %x00
                            ETX checksum
 
