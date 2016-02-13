@@ -208,7 +208,7 @@ consistent with the UltraEasy protocol.
 Records are stored in descending time order, which means record `0` is
 the latest reading.
 
-    READ-RECORD-response = STX %18 %x00 ; message length = 24 bytes
+    READ-RECORD-response = STX %x18 %x00 ; message length = 24 bytes
                            %x04 %x06 inverse-record-number
                            %x00 unknown-counter
                            timestamp glucose-value flags %x0b %x00
