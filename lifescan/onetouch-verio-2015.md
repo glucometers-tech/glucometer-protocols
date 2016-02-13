@@ -115,8 +115,8 @@ SCSI commands:
 
  * **QUERY** to retrieve information on the device (serial number,
    device model, etc.)
- * **GETTIME** to retrieve current RTC time of the device.
- * **SETTIME** to change the RTC time fo the device.
+ * **READ RTC** to retrieve current RTC time of the device.
+ * **WRITE RTC** to change the RTC time fo the device.
  * **READ RECORD COUNT** to retrieve the number of records in the
    device's memory.
  * **READ RECORD** to retrieve the content of one record.
@@ -152,18 +152,18 @@ It is interesting to note the usage of big endian wide characters, as
 the rest of the protocol is little endian. This is probably due to
 Unicode specifying BE being the default.
 
-### GETTIME
+### READ RTC
 
 The request to query the device time is fairly simple, and is
 communicated through `lba3`:
 
-    GETTIME-request = STX %x09 %x00 ; message length = 9 bytes
-                      %x04 %x20 %x02
-                      ETX checksum
-
-    GETTIME-response = STX %x0c %x00 ; message length = 12 bytes
-                       %x04 %x06 timestamp
+    READ RTC-request = STX %x09 %x00 ; message length = 9 bytes
+                       %x04 %x20 %x02
                        ETX checksum
+
+    READ RTC-response = STX %x0c %x00 ; message length = 12 bytes
+                        %x04 %x06 timestamp
+                        ETX checksum
 
     timestamp = 4OCTET ; 32-bit little-endian value
 
@@ -177,17 +177,17 @@ It should not be mistaken for a UNIX timestamp, although the format is
 compatible. To convert to UNIX timestamp, you should add `946684800`
 to the value (the UNIX timestamp of the device's own epoch.)
 
-### SETTIME
+### WRITE RTC
 
-The **SETTIME** command is also communicated through `lba3`.
+The **WRITE RTC** command is also communicated through `lba3`.
 
-    SETTIME-request = STX %x0d %x00 ; message length = 13 bytes
-                      %x04 %x20 %x01 timestamp
-                      ETX checksum
+    WRITE RTC-request = STX %x0d %x00 ; message length = 13 bytes
+                        %x04 %x20 %x01 timestamp
+                        ETX checksum
 
-    SETTIME-response = STX %x08 %x00 ; message length = 8 bytes
-                       %x04 %x06
-                       ETX checksum
+    WRITE RTC-response = STX %x08 %x00 ; message length = 8 bytes
+                         %x04 %x06
+                         ETX checksum
 
 ### READ RECORD COUNT
 
