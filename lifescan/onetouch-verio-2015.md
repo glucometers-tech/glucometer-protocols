@@ -147,16 +147,12 @@ from, `lba3`.
     query-selector-unknown = %x03
 
 The reply starts with what appears an arbitrary pair of bytes, and
-then follows with what appears to be a UTF-16-BE string, null
+then follows with what appears to be a UTF-16-LE string, NULL
 terminated (except for the `query-selector-unknown` response.)
 
     QUERY-response = STX length
-                     %x04 %x06 *WCHAR-BE
+                     %x04 %x06 *WCHAR-LE
                      ETX checksum
-
-It is interesting to note the usage of big endian wide characters, as
-the rest of the protocol is little endian. This is probably due to
-Unicode specifying BE being the default.
 
 ### READ RTC
 
