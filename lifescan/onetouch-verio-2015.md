@@ -177,6 +177,18 @@ It should not be mistaken for a UNIX timestamp, although the format is
 compatible. To convert to UNIX timestamp, you should add `946684800`
 to the value (the UNIX timestamp of the device's own epoch.)
 
+### SETTIME
+
+The **SETTIME** command is also communicated through `lba3`.
+
+    SETTIME-request = STX %x0d %x00 ; message length = 13 bytes
+                      %x04 %x20 %x01 timestamp
+                      ETX checksum
+
+    SETTIME-response = STX %x08 %x00 ; message length = 8 bytes
+                       %x04 %x06
+                       ETX checksum
+
 ### READ RECORD COUNT
 
 The following messages correspond to request and response for the
