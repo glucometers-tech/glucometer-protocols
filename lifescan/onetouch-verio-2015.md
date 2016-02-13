@@ -186,7 +186,7 @@ number of records in memory. The messages are transmitted over `lba3`.
                                 %x04 %x27 %x00
                                 ETX checksum
 
-    READ-RECORD-COUNT-response = STX %x.. %x00 ; message length =
+    READ-RECORD-COUNT-response = STX %x0a %x00 ; message length = 10 bytes
                                  %x04 %x06 message-count
                                  ETX checksum
     message-count = 2OCTET ; 16-bit little-endian value
@@ -208,7 +208,7 @@ consistent with the UltraEasy protocol.
 Records are stored in descending time order, which means record `0` is
 the latest reading.
 
-    READ-RECORD-response = STX %0. %x00 ; message length =
+    READ-RECORD-response = STX %18 %x00 ; message length = 24 bytes
                            %x04 %x06 inverse-record-number
                            %x00 unknown-counter
                            timestamp glucose-value flags %x0b %x00
