@@ -2,6 +2,12 @@
 
 Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
 
+The communication protocol as described in this document applies to
+the following models:
+
+ * *OneTouch Verio 2015* (microUSB connector)
+ * *OneTouch Select Plus*
+
 ## Important device notes
 
 Not to be confused with the the previous generation of OneTouch Verio
