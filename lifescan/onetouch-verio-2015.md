@@ -125,11 +125,14 @@ SCSI commands:
 
  * **QUERY** to retrieve information on the device (serial number,
    device model, etc.)
+ * **READ PARAMETER** to retrieve parameters set for the device (time
+   and date format, glucose unit used.)
  * **READ RTC** to retrieve current RTC time of the device.
  * **WRITE RTC** to change the RTC time fo the device.
  * **READ RECORD COUNT** to retrieve the number of records in the
    device's memory.
  * **READ RECORD** to retrieve the content of one record.
+ * **ERASE MEMORY** to clear the meter altogether.
 
 ### QUERY
 
@@ -308,3 +311,18 @@ whole blood) and the measurement site (fingertip), as those are
 visible in the original software's UI. Meal information might also be
 present. OneTouch Ultra2 provided a simple mapping of meal and comment
 codes.
+
+### MEMORY ERASE
+
+The memory erase command deletes all the records in the device's
+memory. It is communicated over `lba3`.
+
+    MEMORY-ERASE-request = STX %x08 %x00 ; message length = 8 bytes
+                           %x04 %x1a
+                           ETX checksum
+
+    MEMORY-ERASE-response = STX %x08 %x00 ; message length = 8 bytes
+                            %x04 %x06
+                            ETX checksum
+
+Remember that this action is irreversible.
