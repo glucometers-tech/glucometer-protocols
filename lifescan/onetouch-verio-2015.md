@@ -109,7 +109,9 @@ and are thus named the same way as in its specs.
 
 The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and
 stored little-endian, again the same as used in the OneTouch Ultra
-Easy protocol.
+Easy protocol. If the checksum is not valid, the device will not
+process the message, and the next READ request to the LBA will return
+the content as written.
 
 ## Messages
 
