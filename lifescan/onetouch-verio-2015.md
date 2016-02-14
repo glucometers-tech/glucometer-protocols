@@ -277,12 +277,12 @@ the latest reading.
 
     READ-RECORD-response = STX %x18 %x00 ; message length = 24 bytes
                            %x04 %x06 inverse-record-number
-                           %x00 unknown-counter
+                           %x00 lifetime-counter
                            timestamp glucose-value flags %x0b %x00
                            ETX checksum
 
     inverse-record-number = 2OCTET ; 16-bit little-endian value
-    unknown-counter = 2OCTET       ; 16-bit little-endian value
+    liftime-counter = 2OCTET       ; 16-bit little-endian value
     glucose-value = 4OCTET         ; 32-bit little-endian value
     flags = OCTET
 
@@ -290,9 +290,10 @@ The inverse record number seem to provide a sequence of readings, it
 would be interesting to compare its value for a reader that exceeded
 its storage memory.
 
-An unknown counter, also proceeding backward is present, which is
-offset to the inverse record number. Different meters appear to have
-different offsets.
+A lifetime counter is also present, that will keep increasing even
+though the device's memory is cleared with the **ERASE MEMORY**
+command. The original offset of the meter is likely related to the
+factory calibration.
 
 The glucose value is represented as a 32-bit little endian value, to
 continue the similarities with the UltraEasy device. It represent the
