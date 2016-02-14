@@ -109,9 +109,11 @@ and are thus named the same way as in its specs.
 
 The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and
 stored little-endian, again the same as used in the OneTouch Ultra
-Easy protocol. If the checksum is not valid, the device will not
-process the message, and the next READ request to the LBA will return
-the content as written.
+Easy protocol.
+
+If the checksum is not valid, the device will not process the message,
+and the next READ request to the LBA will return the content as
+written.
 
 ## Messages
 
@@ -153,8 +155,54 @@ then follows with what appears to be a UTF-16-LE string, NULL
 terminated (except for the `query-selector-unknown` response.)
 
     QUERY-response = STX length
-                     %x04 %x06 *WCHAR-LE
+                     %x04 %x06 *WCHAR-LE %x00 %x00
                      ETX checksum
+
+### READ PARAMETER
+
+The meter repors a number of parameters in a similar fashion to the
+**QUERY** command.
+
+    READ-PARAMETER-request = STX %x09 %x00 ; message length = 9 bytes
+                             %x04 parameter-selector %x00
+                             ETX checksum
+
+    parameter-selector = parameter-selector-timefmt /
+                         parameter-selector-datefmt /
+                         parameter-selector-unit ; this is only a guess, need confirmation
+
+    parameter-selector-timefmt = %x00
+    parameter-selector-datefmt = %x02
+    parameter-selector-unit = %x04
+
+**Nota bene**: that the `0x04` selector reports the unit is only a
+  guess based on the software's logs and the device that was
+  traced. If you're in possession of a compatible device with mg/dL
+  display, please open an issue to the repository, and contact me with
+  a trace.
+
+The response is provided in different formats, depending on the
+parameter requested.
+
+    READ-PARAMETER-response = STX length
+                              %x03 %x06 paarameter-response
+                              ETX checksum
+
+    parameter-response = parameter-response-timefmt /
+                         parameter-response-datefmt /
+                         parameter-response-unit
+
+    parameter-response-timefmt = *WCHAR-LE %x00 %x00
+    parameter-response-datefmt = *WCHAR-LE %x00 %x00
+
+    parameter-response-unit = parameter-unit-mgdl / parameter-unit-mmol
+    parameter-unit-mgdl = %x00 %x00 %x00 %x00
+    parameter-unit-mmoll = %x01 %x00 %x00 %x00
+
+The time and date formats reported look like `strftime` formats, but
+are not (`%n` is used to indicate the month, rather than newline and
+`%T` for minutes.) They do not match the date as displayed on the
+device or on the software.
 
 ### READ RTC
 
