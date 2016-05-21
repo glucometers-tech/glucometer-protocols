@@ -147,11 +147,19 @@ from, `lba3`.
     query-selector = query-selector-serial /
                      query-selector-model /
                      query-selector-software /
-                     query-selector-unknown
-    query-selector-serial = %x00
-    query-selector-model = %x01
-    query-selector-software = %x02
-    query-selector-unknown = %x03
+                     query-selector-unknown /
+                     query-selector-date-format /
+                     query-selector-time-format /
+                     query-selector-url /
+                     query-selector-languages
+    query-selector-serial      = %x00
+    query-selector-model       = %x01
+    query-selector-software    = %x02
+    query-selector-unknown     = %x03
+    query-selector-date-format = %x04
+    query-selector-time-format = %x05
+    query-selector-url         = %x07  ; http://www.lifescan.co.uk
+    query-selector-languages   = %x09
 
 The reply starts with what appears an arbitrary pair of bytes, and
 then follows with what appears to be a UTF-16-LE string, NULL
@@ -160,6 +168,52 @@ terminated (except for the `query-selector-unknown` response.)
     QUERY-response = STX length
                      %x04 %x06 *WCHAR-LE %x00 %x00
                      ETX checksum
+
+#### Languages
+
+Devices sold on multilingual markets allow the selection of the
+language to use through settings. The **QUERY** selector `0x09`
+appears to provide the list of supported languages in the device.
+
+    WALPHA-UPPER = %x41-5A %x00
+    WALPHA-LOWER = %x61-7a %x00
+    WDIGIT = %x30-39 %x00
+    WIDESP = SP %x00
+    WSEMICOLON = ";" %x00
+    WDOT = "." %x00
+
+    LANGUAGES = language *(WSEMICOLON WIDESP language)
+    language = language-code country-specifier WIDESP language-version
+    language-code = 2WALPHA-UPPER
+    country-specifier = WALPHA-LOWER
+    language-version = 2WDIGIT WDOT 2WDIGIT WDOT 2WDIGIT
+
+
+The languages are given as a list of wide-char (little endian)
+specifications of languages. Each language specification includes a
+main language code (which appears to match ISO language codes) and
+some country specification: `ENu` for *English (US)* and `ENe` for
+*English (UK)*.
+
+
+#### Date and time format
+
+The device appears to provide some information on the date and time
+format to use for displaying date and time, although this does not
+match the actual format displayed on the device.
+
+The format appears to be similar to `strftime`, but it is not
+compatible with the POSIX interface for it.
+
+| Specifier | Meaning                               |
+| --------- | ------------------------------------- |
+|    %I     | Hour as decimal number, 24-hour clock |
+|    %h     | Hour as decimal number, 12-hour clock |
+|    %T     | Minute as decimal number              |
+|    %p     | Either "AM" or "PM"                   |
+|    %D     | Day of the month as decimal number    |
+|    %n     | Abbreviated month name                |
+|    %y     | Year as decimal number                |
 
 ### READ PARAMETER
 
@@ -199,10 +253,7 @@ parameter requested.
     parameter-unit-mgdl = %x00 %x00 %x00 %x00
     parameter-unit-mmoll = %x01 %x00 %x00 %x00
 
-The time and date formats reported look like `strftime` formats, but
-are not (`%n` is used to indicate the month, rather than newline and
-`%T` for minutes.) They do not match the date as displayed on the
-device or on the software.
+Time and date formats match those returned by the **QUERY** command.
 
 ### READ RTC
 
