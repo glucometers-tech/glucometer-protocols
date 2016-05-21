@@ -164,31 +164,28 @@ terminated (except for the `query-selector-unknown` response.)
 ### READ PARAMETER
 
 The meter repors a number of parameters in a similar fashion to the
-**QUERY** command.
+**QUERY** command. The request is sent through, and the response read
+from, `lba4`.
 
     READ-PARAMETER-request = STX %x09 %x00 ; message length = 9 bytes
-                             %x04 parameter-selector %x00
+                             %x04 parameter-selector OCTET
                              ETX checksum
 
     parameter-selector = parameter-selector-timefmt /
                          parameter-selector-datefmt /
-                         parameter-selector-unit ; this is only a guess, need confirmation
+                         parameter-selector-unit
 
     parameter-selector-timefmt = %x00
     parameter-selector-datefmt = %x02
     parameter-selector-unit = %x04
 
-**Nota bene**: that the `0x04` selector reports the unit is only a
-  guess based on the software's logs and the device that was
-  traced. If you're in possession of a compatible device with mg/dL
-  display, please open an issue to the repository, and contact me with
-  a trace.
+The `OCTET` following the selector appears to be completely ignored.
 
 The response is provided in different formats, depending on the
 parameter requested.
 
     READ-PARAMETER-response = STX length
-                              %x03 %x06 paarameter-response
+                              %x03 %x06 parameter-response
                               ETX checksum
 
     parameter-response = parameter-response-timefmt /
