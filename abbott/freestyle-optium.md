@@ -115,19 +115,24 @@ Each result is returned in its own line complete with the timestamp and some
 
     result = result-value SP
              SP date-2-nosec
-             SP "G" ; see note
+             SP result-type
              SP 0x00
-    result-value = 3DIGIT / ( "HI" SP ) ; in mg/dL
+    result-value = 3DIGIT / ( "HI" SP )
+    result-type = "G" / "K"
 
-The `G` literal is likely related to distinguish blood glucose results versus
-β-ketones, unfortunately I have no such strip to test.
+The result type literal distinguishes between blood glucose (`G`) and β-ketones
+(`K`) test results.
 
-The `HI` literal signify a reading that was higher than the maximum reported
-value of the device (value unknown.)
+For glucose results, the value is given in mg/dL, even if the glucometer is set
+to report mmol/L in its configuration. Conversion happens at display time, both
+on the device and on the software.
 
-The result result values reported in numbers are always reported in mg/dL, even
-if the glucometer is set to report mmol/L in its configuration. Conversion
-happens at display time, both on the device and on the software.
+For β-ketones results, the unit of the value is currently unknown; where the
+display shows (0.2 mmol/l, the value provided is 003.)
+
+The `HI` literal signify a reading that was outside the range of the device (or
+more likely of the strip.) For glucose results, this is unknown, where for
+β-ketones it is known as 8.0 mmol/l.
 
 #### `tim` command
 
