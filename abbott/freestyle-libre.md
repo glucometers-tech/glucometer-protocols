@@ -101,13 +101,13 @@ The result line is a comma separated list. The known fields are as follows:
   12. Glucose value in mg/dL
   15. Indication that sports have been recorded. 1 if Sports set, 0 otherwise. No further info on what sport and how long
   16. Indication that a medication has been administered. 1 if administered, 0 otherwise. No further info on what medication.
-  17. Set to 1 if in another field the short acting insulin is set
-  18. Set to 1 if in another field the long acting insulin is set
+  17. Set to 1 if in another field the long acting insulin is set
+  18. Set to 1 if in another field the short acting insulin is set
   19. Bitfield for custom comments 1-6. If 1, then first comment is set, if 2 then second comment (==> 3 = comment 1 and 2)...
-  23. Value of Short Acting insulin in 0.5 IE. If you want proper IE, divide by 2
+  23. Value of long Acting insulin in 0.5 IE. If you want proper IE, divide by 2
   25. Indication that Carbs have been entered. 1 if carbs entered, 0 otherwise.
   26. Entered carbs in gramms
   29-34. Custom comments 1-6. Be aware that the comments are shown in every record. The bitfield in column 19. shows which comments are actually set.
-  43. Value of long acting insulin in 0.5 IE. If you want proper IE, divide by 2.
+  43. Value of short acting insulin in 0.5 IE. If you want proper IE, divide by 2.
 	
-The number of columns in a record can be different. If an long acting insulin value has been set, then it is > 43, otherwise the record has only entries up to comment 6.
+The number of columns in a record can be different. If an short acting insulin value has been set, then it is > 43, otherwise the record has only entries up to comment 6.
