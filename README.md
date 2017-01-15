@@ -16,6 +16,17 @@ information.
 Most of the information has been reverse engineerd by individual
 contributors.
 
+## Content
+
+* Abbott Laboratories
+  - [FreeStyle Optium](abbott/freestyle-optium.md)
+  - [Shared HID protocol](abbott/shared-hid-protocol.md)
+  - [FreeStyle Libre](abbott/freestyle-libre.md)
+* LifeScan
+  - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
+* SD Biosensor
+  - [SD Codefree](sd-biosensor/codefree.md)
+
 ## Structure
 
 Please create a top-level directory for each of the manufacturers, and
@@ -23,4 +34,3 @@ place the protocol specifications within those directories. Use
 Markdown format to describe the protocol, try to use
 [ABNF](https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_Form)
 for the description of the protocol.
-
