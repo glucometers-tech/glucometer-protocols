@@ -1,67 +1,26 @@
-# Abbott Freestyle Libre HID protocol
+# FreeStyle Libre
 
-Abbott devices such as FreeStyle InsuLinx and FreeStyle Libre share a
-common communication protocol based on USB HID. The commands executed
-on top of this protocol are not cross-device compatible.
+Reverse engineered by Pascal Fribi, editing and expansion by Diego Elio Pettenò.
 
-See [Shared HID Protocol](shared-hid-protocol.md) for a description of
-the framing.
+## Protocol
 
-
-## Communication Protocol
-
-The "reports" are not following the HID standard. They are of a fixed
-64-bytes size, even if most of the commands themselves are
-shorter. Replies can span multiple inbound reports. Be aware that the
-device does not clean up the buffer. After the length as indicated in
-the header there is usually a lot of garbage that needs to be ignored.
-
-## Initialization Sequence
-
-See [Shared HID Protocol](shared-hid-protocol.md) for a description of
-the Initialization sequence.
+This device uses the [shared HID protocol](shared-hid-protocol) used by other
+meters in the FreeStyle family. Most of the text command share the same message
+type `0x60`, except where otherwise noted.
 
 ## Commands
 
-Most of the commands are sent with command type 0x60.
+The Libre supports a distinct set of commands from those described in the shared
+protocol. In particular, the following commands are not supported:
 
-The following commands are a subset of possible commands. To query
-Diabetes relevant information, these are most important:
+  * `$serlnum?` — replaced by `$sn?`.
 
-    cmd 0x60 msg $ptname?       ==> Name of Patient as provided in Freestyle Libre application
-    cmd 0x60 msg $date?        ==> date: 12,8,16 (month, day, year)
-    cmd 0x60 msg $time?        ==> time: 23,11 (hour, minute)
+The following commands are instead added:
+
     cmd 0x21 msg $dbrnum?      ==> number of records
     cmd 0x60 msg $history?     ==> Sensor results
     cmd 0x60 msg $arresult?    ==> manual results, with comments
 
-## Patient Name
-
-The standard message framing is omitted for clarity. Insteas only the
-command and the message part are outlined. The size can be calculated
-accordingly. In the replies, also the type and length are
-ommitted. Only the reply in the message itself is shown here.
-
-    ptname: cmd = 0x60 msg = $ptname?
-		ptname-reply: <name>\r\nCKSUM: <checksum>\r\nCMD: OK\r\n
-
-## Date, Time
-
-The standard message framing is omitted for clarity. Insteas only the
-command and the message part are outlined. The size can be calculated
-accordingly. In the replies, also the type and length are
-ommitted. Only the reply in the message itself is shown here.
-
-    date: cmd = 0x60 msg = $date?
-    date-reply: mm,dd,yy\r\n
-		CKSUM: <checksum>\r\n
-		CMD: OK\r\n
-		
-		time: cmd = 0x60 msg = $time?
-		time-reply: HH,MM\r\n
-		CKSUM: <checksum>\r\n
-		CMD: OK\r\n
-		
 ## DB Records
 
 The standard message framing is omitted for clarity. Insteas only the
