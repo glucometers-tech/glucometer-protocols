@@ -74,6 +74,17 @@ include a date.
 
 This is the same exact request/reply pair in all the currently observed devices.
 
+## Synchronization packets
+
+Some devices send what appears like a "synchronization packet" every few reports
+read, that is so defined:
+
+    synchronization-packet = %x22 %x01 OCTET
+
+The frequency of these packets appears to depend on the device (some devices
+appear to send it exactly every three reports sent), and so does the content of
+the packet.
+
 ## Text commands
 
 Most of the devices using this HID-based protocol can be sent commands that
