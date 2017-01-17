@@ -22,6 +22,7 @@ contributors.
   - [FreeStyle Optium](abbott/freestyle-optium.md)
   - [Shared HID protocol](abbott/shared-hid-protocol.md)
   - [FreeStyle Libre](abbott/freestyle-libre.md)
+  - [FreeStyle Precision Neo](abbott/freestype-precision-neo.md)
 * LifeScan
   - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
 * SD Biosensor
