@@ -85,8 +85,8 @@ Each text response, once reconstructed, complies to the following specs:
     response = message "CKSM:" checksum CRLF
                "CMD" SP command-status CRLF
 
-    checksum = 8HEXDIG               ; all "0" on failure
-    message = *( VCHAR / SP / CRLF ) ; only present on success
+    checksum = 8HEXDIG
+    message = *( VCHAR / SP / CRLF )
     command-status ("OK" / "Fail!")
 
 The `<checksum>` is calculated by summing up the ASCII value of each of the
