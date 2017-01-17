@@ -114,3 +114,101 @@ returned; the `<checksum>` field is calculated the same way as the overall
 command one by summing up the ASCII value of each of the bytes forming the
 record set, up to and including the final newline, and excluding the record
 count.
+
+## Common commands
+
+There are a number of commands that appear shared across FreeStyle devices, and
+are thus documented here to avoid duplication.
+
+As devices may not support all these common commands, please refer to the
+detailed protocol definition to note inconsistencies.
+
+The majority of these commands are getters and setters of variables, some
+free-form and some structured. The generic syntax for these commands is:
+
+    command = "$" variable-name ( "?" / "," variable-value )
+    variable-name = 1*VCHAR
+    variable-value = *( VCHAR / SP )
+
+Some variable (such as the software version and serial number) are
+read-only. Those commands are documented with their full value, including the
+terminating question mark.
+
+### `$swver?`
+
+    swver-response = 1* ( VCHAR / SP ) CRLF
+
+Returns the software version of the device. The returned value is free-form, as
+it changes among devices.
+
+### `$serlnum?`
+
+    serlnum-response = 1* ( ALPHA / DIGIT ) CRLF
+
+Returns the serial number of the device. The serial number format appears to be
+different from previous Abbott devices and as such is to be considered
+free-form.
+
+Please note that this command may provide a serial number even for devices that
+respond with `<no-serial-num>` during initialization.
+
+### `$date`
+
+    date-cmd = "$date" ("?" / "," date-value)
+    date-query-response = date-value CRLF
+
+    date-value = ( month "," day "," year )
+    month = 1*2DIGIT
+    day = 1*2DIGIT
+    year 1*2DIGIT
+
+Fetch or set the current date as seen by the device. If a date value is passed
+following the command, it'll be interpreted as a set-date.
+
+Note the year value is defined at most with two digits, the value 2000 needs to
+be added (or subtracted) to match the current year.
+
+In case of successful setting of date, the command is confirmed with no further
+information; in case of error, the `<message>` field will report the encountered
+error.
+
+### `$time`
+
+    time-cmd = "$time" ("?" / "," time-value)
+    time-query-response = time-value CRLF
+
+    time-value = hour "," minute
+    hour = 1*2DIGIT
+    minute = 1*2DIGIT
+
+Fetch or set the current time as seen by the device.
+
+In case of successful setting of date, the command is confirmed with no further
+information; in case of error, the `<message>` field will report the encountered
+error.
+
+### `$ptname`
+
+    ptname-cmd = "$ptname" ("?" / "," patient-name)
+    ptname-query-response = patient-name CRLF
+
+    patient-name-setting = 1*VCHAR
+    patient-name-response = *VCHAR
+
+Returns the patient name as configured in the device.
+
+Note that while an empty response is valid, an empty value when setting the
+variable is not accepted.
+
+### `$ptid`
+
+    ptid-cmd = "$ptname" ("?" / "," patient-id)
+    ptid-query-response = patient-id CRLF
+
+    patient-id-setting = 1*VCHAR
+    patient-id-response = *VCHAR
+
+Returns the patient ID as configured in the device.
+
+Note that while an empty response is valid, an empty value when setting the
+variable is not accepted.
