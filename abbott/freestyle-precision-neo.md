@@ -69,8 +69,13 @@ glucose reading, type 10 is an insulin input that was made on the device.
   13. `unknown`
   
   insulinType refers to the type of insulin and the time of day as follow:
+  
   0 = morning long-acting insulin
+  
   1 = breakfast short-acting insulin
+  
   2 = lunch short-acting insulin
+  
   3 = evening long-acting insulin
+  
   4 = dinner short-acting insulin
