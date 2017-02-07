@@ -2,6 +2,14 @@
 
 Reverse engineered by Pascal Fribi, editing and expansion by Diego Elio Pettenò.
 
+## Important device notes
+
+### USB IDs
+
+| Device          | Vendor ID | Product ID |
+| ---             | ---       | ---        |
+| FreeStyle Libre | 1a61      | 3650       |
+
 ## Protocol
 
 This device uses the [shared HID protocol](shared-hid-protocol) used by other

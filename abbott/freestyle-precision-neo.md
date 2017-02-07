@@ -15,6 +15,12 @@ feature sets.
 FreeStyle Precision Neo is only available within the United States, while
 FreeStyle Optium Neo is only available outside of the United States.
 
+### USB IDs
+
+| Device                  | Vendor ID | Product ID |
+| ---                     | ---       | ---        |
+| FreeStyle Precision Neo | 1a61      | 3850       |
+
 ## Protocol
 
 This device uses the [shared HID protocol](shared-hid-protocol) used by other
