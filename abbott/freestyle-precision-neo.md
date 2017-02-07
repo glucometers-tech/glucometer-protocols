@@ -8,7 +8,12 @@ The FreeStyle Precision Neo is a glucometer that can also read special β-ketone
 testing strips. Unfortunately those strips are not available in Europe, so the
 reverse engineering in this document is
 
-The FreeStyle Precision Neo has the same protocol as the FreeStyle Optium Neo which is probably the same device in other countries outside the US.
+The FreeStyle Precision Neo has the same protocol as the FreeStyle Optium
+Neo. Although the devices are very much alike they appear to have different
+feature sets.
+
+FreeStyle Precision Neo is only available within the United States, while
+FreeStyle Optium Neo is only available outside of the United States.
 
 ## Protocol
 
@@ -62,20 +67,18 @@ glucose reading, type 10 is an insulin input that was made on the device.
   6. `hour = 1*2DIGIT`
   7. `minute = 1*2DIGIT`
   8. `unknown`
-  9. `insulinType = "0"|"1"|"2"|"3"`
+  9.  Carries an enumeration of the type of insulin used:
+     ```
+     insulinType = morning-long-acting / breakfast-short-acting /
+                   lunch-short-acting / evening-long-acting /
+                   dinner-short-acting
+     morning-long-acting = "0"
+     breakfast-short-acting = "1"
+     lunch-short-acting = "2"
+     evening-long-acting = "3"
+     dinner-short-acting = "4"
+     ```
   10. `value = 1*DIGIT`
   11. `unknown`
   12. `unknown`
   13. `unknown`
-  
-  insulinType refers to the type of insulin and the time of day as follow:
-  
-  0 = morning long-acting insulin
-  
-  1 = breakfast short-acting insulin
-  
-  2 = lunch short-acting insulin
-  
-  3 = evening long-acting insulin
-  
-  4 = dinner short-acting insulin
