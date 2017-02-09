@@ -87,7 +87,8 @@ change event.
   7. `minute = 1*2DIGIT`
   8. `second = 1*2DIGIT`
   9. `unknown`
-  10.
+  10. Identifies the type of reading in the record
+
       ```
       reading-type = blood-glucose / blood-ketone / sensor-glucose
       blood-glucose = "0"
