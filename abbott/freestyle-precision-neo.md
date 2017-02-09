@@ -75,9 +75,9 @@ glucose reading, type 10 is an insulin input that was made on the device.
   8. `unknown`
   9.  Carries an enumeration of the type of insulin used:
      ```
-     insulinType = morning-long-acting / breakfast-short-acting /
-                   lunch-short-acting / evening-long-acting /
-                   dinner-short-acting
+     insulin-type = morning-long-acting / breakfast-short-acting /
+                    lunch-short-acting / evening-long-acting /
+                    dinner-short-acting
      morning-long-acting = "0"
      breakfast-short-acting = "1"
      lunch-short-acting = "2"
