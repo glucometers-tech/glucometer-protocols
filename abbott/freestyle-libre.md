@@ -35,7 +35,7 @@ The following text commands are instead added:
 
 The response includes the number of records in the database (history results.)
 
-## `history?`
+## `$history?`
 
 The `$history?` command returns all the automatic measurements taken by the
 sensors. It does not include the immediate measurements on user request, nor
