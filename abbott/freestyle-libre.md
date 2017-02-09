@@ -47,17 +47,17 @@ the shared protocol documentation.
 ### Record fields
 
   1. `record-id = 1*5DIGIT`
-  2. `unknown`
+  2. `unknown = "12"`
   3. `month = 1*2DIGIT`
   4. `day = 1*2DIGIT`
   5. `year = 1*2DIGIT`
   6. `hour = 1*2DIGIT`
   7. `minute = 1*2DIGIT`
   8. `second = 1*2DIGIT`
-  9. `unknown`
-  10. `unknown`
-  11. `unknown`
-  12. `unknown`
+  9. `unknown = "1"`
+  10. `unknown = "0"`
+  11. `unknown = "0"`
+  12. `unknown = "0"`
   13. `unknown = "0" / "1"`
 
       This value appears to only be 1 for the first reading of the sensor (with
@@ -94,7 +94,7 @@ change event.
   6. `hour = 1*2DIGIT`
   7. `minute = 1*2DIGIT`
   8. `second = 1*2DIGIT`
-  9. `unknown`
+  9. `unknown = "1"`
   10. Identifies the type of reading in the record
 
       ```
@@ -103,8 +103,11 @@ change event.
       blood-ketone = "1"
       sensor-glucose = "2"
       ```
-  11. `unknown`
-  12. `unknown`
+  11. `unknown = "0"`
+  12. `unknown = "0" / "1"`
+
+      This appears to be 1 when either an error is present, or when the read
+      value is LO.
   13. `value = 1*DIGIT`
 
       When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
@@ -112,7 +115,10 @@ change event.
 
       When `reading-type` is `blood-ketone`, this represent the β-ketone
       reading, in an unknown measurement unit.
-  14. `unknown`
+  14. `unknown = "0" / "1"`
+
+      This appears to be 0 for values read from a blood strip, and 1 for values
+      read from sensor. Appears redundant with the `reading-type` field.
   15. Corresponds to the arrow indicator in the UI.
 
       ```
@@ -135,16 +141,17 @@ change event.
   20. `custom-comments-bitfield = 1*DIGIT`
 
       Custom comments 1-6 flags. To be interpreted as a bitfield, LSB first.
-  21. `unknown`
-  22. `unknown`
-  23. `unknown`
+  21. `unknown = "0"`
+  22. `unknown = "0"`
+  23. `unknown = "0" / "1" / "2" / "3" / "4" / "5"`
   24. Value of long Acting insulin in 0.5 IE. If you want proper IE, divide by 2
-  25. `unknown`
+  25. `unknown = "0" / "1"`
   26. `food-flag = "0" / "1"`
 
       See field 27 for value.
   27. `food-carbs-grams = 1*DIGIT`
-  28. `error-bitfield = 1*5DIGIT`
+  28. `unknown = "0"`
+  29. `error-bitfield = 1*5DIGIT`
 
       This field needs to be interpreted as a bitfield (in decimal
       representation). Flag 0x8000 indicates an error (invalid reading). If the
@@ -152,13 +159,12 @@ change event.
       not clear.
 
       In the Event View on the device, these correspond to Err3 errors.
-  29. `unknown`
-  30. Custom comment 1 ‡
-  31. Custom comment 2 ‡
-  32. Custom comment 3 ‡
-  33. Custom comment 4 ‡
-  34. Custom comment 5 ‡
-  35. Custom comment 6 ‡
+  30. `custom-comment-1 = DQUOTE *VCHAR DQUOTE` ‡
+  31. `custom-comment-2 = DQUOTE *VCHAR DQUOTE` ‡
+  32. `custom-comment-3 = DQUOTE *VCHAR DQUOTE` ‡
+  33. `custom-comment-4 = DQUOTE *VCHAR DQUOTE` ‡
+  34. `custom-comment-5 = DQUOTE *VCHAR DQUOTE` ‡
+  35. `custom-comment-6 = DQUOTE *VCHAR DQUOTE` ‡
   36. `unknown` †
   37. `unknown` †
   38. `unknown` †
