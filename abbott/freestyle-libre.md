@@ -79,32 +79,21 @@ change event.
 ### Reading record fields
 
   1. `record-id = 1*5DIGIT`
-
   2. `record-type = "2"`
-
   3. `month = 1*2DIGIT`
-
   4. `day = 1*2DIGIT`
-
   5. `year = 1*2DIGIT`
-
   6. `hour = 1*2DIGIT`
-
   7. `minute = 1*2DIGIT`
-
   8. `second = 1*2DIGIT`
-
   9. `unknown`
-
   10. ```
       reading-type = blood-glucose / blood-ketone / sensor-glucose
       blood-glucose = "0"
       blood-ketone = "1"
       sensor-glucose = "2"
       ```
-
   11. `unknown`
-
   13. `value = 1*DIGIT`
 
       When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
@@ -112,75 +101,44 @@ change event.
 
       When `reading-type` is `blood-ketone`, this represent the β-ketone
       reading, in an unknown measurement unit.
-
   14. `unknown`
-
   15. `unknown`
-
   16. `sports-flag = "0" / "1"`
-
   17. `medication-flag = "0" / "1"`
-
   18. `long-acting-insulin-flag = "0" / "1"`
 
       See field 24 for value.
-
   19. `short-acting-insulin-flag = "0" / "1"`
 
       See field 44 for value†.
-
   20. `custom-comments-bitfield = 1*DIGIT`
 
       Custom comments 1-6 flags. To be interpreted as a bitfield, LSB first.
-
   21. `unknown`
-
   22. `unknown`
-
   23. `unknown`
-
   24. Value of long Acting insulin in 0.5 IE. If you want proper IE, divide by 2
-
   25. `unknown`
-
   26. `food-flag = "0" / "1"`
 
       See field 27 for value.
-
   27. `food-carbs-grams = 1*DIGIT`
-
   28. `unknown`
-
   29. `unknown`
-
   30. Custom comment 1 ‡
-
   31. Custom comment 2 ‡
-
   32. Custom comment 3 ‡
-
   33. Custom comment 4 ‡
-
   34. Custom comment 5 ‡
-
   35. Custom comment 6 ‡
-
   36. `unknown` †
-
   37. `unknown` †
-
   38. `unknown` †
-
   39. `unknown` †
-
   40. `unknown` †
-
   41. `unknown` †
-
   42. `unknown` †
-
   43. `unknown` †
-
   44. Value of short acting insulin in 0.5 IE. If you want proper IE, divide by 2.
 
 † The number of columns in a record can be different. If an short acting insulin
@@ -194,41 +152,22 @@ field 19. shows which comments are actually set.
 ### Time change record fields
 
   1. `record-id = 1*5DIGIT`
-
   2. `record-type = "5"`
-
   3. `new-month = 1*2DIGIT`
-
   4. `new-day = 1*2DIGIT`
-
   5. `new-year = 1*2DIGIT`
-
   6. `new-hour = 1*2DIGIT`
-
   7. `new-minute = 1*2DIGIT`
-
   8. `new-second = 1*2DIGIT`
-
   9. `unknown`
-
   10. `old-month = 1*2DIGIT`
-
   11. `old-day = 1*2DIGIT`
-
   12. `old-year = 1*2DIGIT`
-
   13. `old-hour = 1*2DIGIT`
-
   14. `old-minute = 1*2DIGIT`
-
   15. `old-second = 1*2DIGIT`
-
   16. `unknown`
-
   17. `unknown`
-
   18. `unknown`
-
   19. `unknown`
-
   20. `unknown`
