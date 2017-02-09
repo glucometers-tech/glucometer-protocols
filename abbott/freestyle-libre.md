@@ -96,6 +96,7 @@ change event.
       sensor-glucose = "2"
       ```
   11. `unknown`
+  12. `unknown`
   13. `value = 1*DIGIT`
 
       When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
