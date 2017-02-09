@@ -72,9 +72,15 @@ measurement)
 The output follows the *Multiple record command* output format as described in
 the shared protocol documentation.
 
-  1. `recordid = 1*5DIGIT`
+Multiple record types have been identified; the second value in the record
+identifies the type; type 2 is a manual reading, record type 5 identifies a time
+change event.
 
-  2. `unknown`
+### Reading record fields
+
+  1. `record-id = 1*5DIGIT`
+
+  2. `record-type = "2"`
 
   3. `month = 1*2DIGIT`
 
@@ -90,11 +96,22 @@ the shared protocol documentation.
 
   9. `unknown`
 
-  10. `unknown`
+  10. ```
+      reading-type = blood-glucose / blood-ketone / sensor-glucose
+      blood-glucose = "0"
+      blood-ketone = "1"
+      sensor-glucose = "2"
+      ```
 
   11. `unknown`
 
   13. `value = 1*DIGIT`
+
+      When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
+      represent the blood sugar reading in mg/dL.
+
+      When `reading-type` is `blood-ketone`, this represent the β-ketone
+      reading, in an unknown measurement unit.
 
   14. `unknown`
 
@@ -172,3 +189,46 @@ comment 6.
 
 ‡ Be aware that custom comments are shown in every record. The bitfield in
 field 19. shows which comments are actually set.
+
+
+### Time change record fields
+
+  1. `record-id = 1*5DIGIT`
+
+  2. `record-type = "5"`
+
+  3. `new-month = 1*2DIGIT`
+
+  4. `new-day = 1*2DIGIT`
+
+  5. `new-year = 1*2DIGIT`
+
+  6. `new-hour = 1*2DIGIT`
+
+  7. `new-minute = 1*2DIGIT`
+
+  8. `new-second = 1*2DIGIT`
+
+  9. `unknown`
+
+  10. `old-month = 1*2DIGIT`
+
+  11. `old-day = 1*2DIGIT`
+
+  12. `old-year = 1*2DIGIT`
+
+  13. `old-hour = 1*2DIGIT`
+
+  14. `old-minute = 1*2DIGIT`
+
+  15. `old-second = 1*2DIGIT`
+
+  16. `unknown`
+
+  17. `unknown`
+
+  18. `unknown`
+
+  19. `unknown`
+
+  20. `unknown`
