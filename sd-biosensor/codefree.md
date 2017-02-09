@@ -8,7 +8,19 @@ The data cable that you can buy together with the device is an USB Serial
 adapter, based on Silicon Laboratories CP210x chipset.
 
 It appears to be a fairly standard USB-to-TRS serial adapter, though the
-connector is a subminiature (2.5mm connector.)
+connector is a subminiature (2.5mm connector):
+
+| Connector | Meaning |
+| ---       | ---     |
+| Tip       | RxD     |
+| Ring      | TxD     |
+| Sleeve    | GND     |
+
+### USB IDs
+
+| Device           | Vendor ID | Product ID |
+| ---              | ---       | ---        |
+| SDCodefree Cable | 10c4      | ea60       |
 
 ## Protocol
 
