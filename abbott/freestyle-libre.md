@@ -46,7 +46,7 @@ the shared protocol documentation.
 
 ### Record fields
 
-  1. `recordid = 1*5DIGIT`
+  1. `record-id = 1*5DIGIT`
   2. `unknown`
   3. `month = 1*2DIGIT`
   4. `day = 1*2DIGIT`
@@ -58,10 +58,18 @@ the shared protocol documentation.
   10. `unknown`
   11. `unknown`
   12. `unknown`
-  13. `value = 1*DIGIT`
-  14. Runtime of the actual sensor in Minutes
-  15. Some sort of validity check. If set to 32768, then ignore the value as the
-      sensor is not ready
+  13. `unknown = "0" / "1"`
+
+      This value appears to only be 1 for the first reading of the sensor (with
+      sensor runtime reporting 15 minutes).
+  14. `value = 1*DIGIT`
+  15. `sensor-runtime-minutes = 1*DIGIT`
+  16. `error-bitfield = 1*5DIGIT`
+
+      This field needs to be interpreted as a bitfield (in decimal
+      representation). Flag 0x8000 indicates an error (invalid reading). If the
+      error flag is set, the remaining bits refer to more error details that are
+      not clear.
 
 ## `$arresult?`
 
@@ -136,7 +144,14 @@ change event.
 
       See field 27 for value.
   27. `food-carbs-grams = 1*DIGIT`
-  28. `unknown`
+  28. `error-bitfield = 1*5DIGIT`
+
+      This field needs to be interpreted as a bitfield (in decimal
+      representation). Flag 0x8000 indicates an error (invalid reading). If the
+      error flag is set, the remaining bits refer to more error details that are
+      not clear.
+
+      In the Event View on the device, these correspond to Err3 errors.
   29. `unknown`
   30. Custom comment 1 ‡
   31. Custom comment 2 ‡
