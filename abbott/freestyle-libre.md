@@ -105,7 +105,17 @@ change event.
       When `reading-type` is `blood-ketone`, this represent the β-ketone
       reading, in an unknown measurement unit.
   14. `unknown`
-  15. `unknown`
+  15. Corresponds to the arrow indicator in the UI.
+
+      ```
+      direction-indicator = none / down-fast / down / steady / up / up-fast
+      none = "0"
+      down-fast = "1"
+      down = "2"
+      steady = "3"
+      up = "4"
+      up-fast = "5"
+      ```
   16. `sports-flag = "0" / "1"`
   17. `medication-flag = "0" / "1"`
   18. `long-acting-insulin-flag = "0" / "1"`
