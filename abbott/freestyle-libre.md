@@ -23,71 +23,56 @@ protocol. In particular, the following commands are not supported:
 
   * `$serlnum?` — replaced by `$sn?`.
 
-The following commands are instead added:
+The following text commands are instead added:
 
-    cmd 0x21 msg $dbrnum?      ==> number of records
-    cmd 0x60 msg $history?     ==> Sensor results
-    cmd 0x60 msg $arresult?    ==> manual results, with comments
+  * `$dbrnum?` (as message type `0x21`)
+  * `$history?`
+  * `$arresult?`
 
-## DB Records
+## `$dbrnum?`
 
-The standard message framing is omitted for clarity. Insteas only the
-command and the message part are outlined. The size can be calculated
-accordingly. In the replies, also the type and length are
-ommitted. Only the reply in the message itself is shown here.
+This is the only command that uses message type `0x21`.
 
-    dbrecords: cmd = 0x21 msg = $dbrnum?
-    dbrecords-reply: DBRECORDS = xxx\r\n
-		CKSUM: <checksum>\r\n
-		CMD: OK\r\n
+    dbrnum-response = "DBRECORDS = " 1*DIGIT CRLF
 
-## history
+The response includes the number of records in the database (history results.)
 
-The standard message framing is omitted for clarity. Insteas only the
-command and the message part are outlined. The size can be calculated
-accordingly. In the replies, also the type and length are
-ommitted. Only the reply in the message itself is shown here.
+## `history?`
 
-This command sends all measurements done by the Libre sensor. It does
-not send measurements that are made by the patient. They are sent with
-$arresult?
+The `$history?` command returns all the automatic measurements taken by the
+sensors. It does not include the immediate measurements on user request, nor
+strip measurements (blood glucose and β-ketone).
 
-    history: cmd = 0x60 msg = $history?
-    history-reply: lines of records, separated by \r\n
-		CKSUM: <checksum>\r\n
-		CMD: OK\r\n
+The output follows the *Multiple record command* output format as described in
+the shared protocol documentation.
 
-A single result row can span multiple messages. A single message is
-separated by \r\n. At the end of all records the cksum/cmd sequence is
-sent.
+### Record fields
 
-The result line is a comma separated list. The known fields are as follows:
-  0. ID of the record
-  2. Month
-  3. Day of the month
-  4. Year - 2 digits!
-  5. Hour
-  6. Minutes
-  7. Seconds
-  13. Glucose value in mg/dL
+  1. ID of the record
+  2. Unknown
+  3. `month = 1*2DIGIT`
+  4. `day = 1*2DIGIT`
+  5. `year = 1*2DIGIT`
+  6. `hour = 1*2DIGIT`
+  7. `minute = 1*2DIGIT`
+  8. `second = 1*2DIGIT`
+  9. `unknown`
+  10. `unknown`
+  11. `unknown`
+  12. `unknown`
+  13. `value = 1*DIGIT`
   14. Runtime of the actual sensor in Minutes
-  15. Some sort of validity check. If set to 32768, then ignore the value as the sensor is not ready
+  15. Some sort of validity check. If set to 32768, then ignore the value as the
+      sensor is not ready
 
-## arresult
+## `$arresult?`
 
-The standard message framing is omitted for clarity. Insteas only the
-command and the message part are outlined. The size can be calculated
-accordingly. In the replies, also the type and length are
-ommitted. Only the reply in the message itself is shown here.
+The `$arresult?` returns manual measurements taken by the user, either by
+scanning the sensor or using a testing strip (for either blood sugar or β-ketone
+measurement)
 
-    arrresult: cmd = 0x60 msg = $history?
-    arresult-reply: lines of records, separated by \r\n
-		CKSUM: <checksum>\r\n
-		CMD: OK\r\n
-
-A single result row can span multiple messages. A single message is
-separated by `\r\n`. At the end of all records the cksum/cmd sequence
-is sent.
+The output follows the *Multiple record command* output format as described in
+the shared protocol documentation.
 
 The result line is a comma separated list. The known fields are as follows:
   0. ID of the record
