@@ -25,13 +25,11 @@ protocol. In particular, the following commands are not supported:
 
 The following text commands are instead added:
 
-  * `$dbrnum?` (as message type `0x21`)
+  * `$dbrnum?`
   * `$history?`
   * `$arresult?`
 
 ## `$dbrnum?`
-
-This is the only command that uses message type `0x21`.
 
     dbrnum-response = "DBRECORDS = " 1*DIGIT CRLF
 
