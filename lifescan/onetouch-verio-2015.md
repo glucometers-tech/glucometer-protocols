@@ -14,6 +14,12 @@ Not to be confused with the the previous generation of OneTouch Verio
 meters, the 2015 edition comes with a microUSB-A connector, rather
 than a TRS (stereo-jack.)
 
+### USB IDs
+
+| Device              | Vendor ID | Product ID |
+| ---                 | ---       | ---        |
+| OneTouch Verio 2015 | 2766      | 0000       |
+
 ## Communication
 
 The device is identified by operating systems as a standard USB Mass
