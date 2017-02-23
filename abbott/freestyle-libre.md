@@ -132,12 +132,12 @@ change event.
       ```
   16. `sports-flag = "0" / "1"`
   17. `medication-flag = "0" / "1"`
-  18. `long-acting-insulin-flag = "0" / "1"`
-
-      See field 24 for value.
-  19. `short-acting-insulin-flag = "0" / "1"`
+  18. `rapid-acting-insulin-flag = "0" / "1"`
 
       See field 44 for value†.
+  19. `long-acting-insulin-flag = "0" / "1"`
+
+      See field 24 for value.
   20. `custom-comments-bitfield = 1*DIGIT`
 
       Custom comments 1-6 flags. To be interpreted as a bitfield, LSB first.
@@ -173,9 +173,9 @@ change event.
   41. `unknown` †
   42. `unknown` †
   43. `unknown` †
-  44. Value of short acting insulin in 0.5 IE. If you want proper IE, divide by 2.
+  44. Value of rapid acting insulin in 0.5 IE. If you want proper IE, divide by 2.
 
-† The number of columns in a record can be different. If an short acting insulin
+† The number of columns in a record can be different. If a rapid acting insulin
 value has been set, then it is > 44, otherwise the record has only entries up to
 comment 6.
 
