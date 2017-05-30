@@ -114,7 +114,7 @@ change event.
       represent the blood sugar reading in mg/dL.
 
       When `reading-type` is `blood-ketone`, this represent the β-ketone
-      reading, in an unknown measurement unit.
+      reading in mmol/l after apply ceil(`value`/2)/10.
   14. `unknown = "0" / "1"`
 
       This appears to be 0 for values read from a blood strip, and 1 for values
