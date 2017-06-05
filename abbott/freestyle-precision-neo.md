@@ -1,19 +1,24 @@
-# FreeStyle Precision Neo / FreeStyle Optium Neo
+# FreeStyle Precision Neo, Optium Neo, Optium Neo H
 
 Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
 
 ## Important device notes
 
-The FreeStyle Precision Neo is a glucometer that can also read special β-ketones
-testing strips. Unfortunately those strips are not available in Europe, so the
-reverse engineering in this document is
+Abbott markets a number of similar meters with a different set of features
+enabled for each in different markets. These differences appear to be
+implemented similarly to the selection of glucose units used in
+display/reporting.
 
-The FreeStyle Precision Neo has the same protocol as the FreeStyle Optium
-Neo. Although the devices are very much alike they appear to have different
-feature sets.
+The known devices sharing the same base protocol are the following:
 
-FreeStyle Precision Neo is only available within the United States, while
-FreeStyle Optium Neo is only available outside of the United States.
+  * **FreeStyle Precision Neo**, marketed in the United States;
+  * **FreeStyle Optium Neo**, marketed in Europe;
+  * **FreeStyle Optium Neo H**.
+
+The FreeStyle Precision Neo (at the very least) can also read special β-ketones
+testing strips. Unfortunately compatible strips are not available in Europe, so
+the reverse engineering in this document does not include information about
+them.
 
 ### USB IDs
 
