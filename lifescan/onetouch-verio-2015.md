@@ -332,13 +332,19 @@ the latest reading.
     READ-RECORD-response = STX %x18 %x00 ; message length = 24 bytes
                            %x04 %x06 inverse-record-number
                            %x00 lifetime-counter
-                           timestamp glucose-value flags %x0b %x00
+                           timestamp glucose-value flag-meal %x00
+                           other-flags %x0b %x00
                            ETX checksum
 
     inverse-record-number = 2OCTET ; 16-bit little-endian value
     liftime-counter = 2OCTET       ; 16-bit little-endian value
-    glucose-value = 4OCTET         ; 32-bit little-endian value
-    flags = OCTET
+    glucose-value = 2OCTET         ; 16-bit little-endian value
+    other-flags = OCTET
+
+    flag-meal = meal-none / meal-before / meal-after
+    meal-none = %x00
+    meal-before = %x01
+    meal-after = %x02
 
 The inverse record number seem to provide a sequence of readings, it
 would be interesting to compare its value for a reader that exceeded
@@ -349,23 +355,25 @@ though the device's memory is cleared with the **ERASE MEMORY**
 command. The original offset of the meter is likely related to the
 factory calibration.
 
-The glucose value is represented as a 32-bit little endian value, to
-continue the similarities with the UltraEasy device. It represent the
-blood sugar in mg/dL. As most other meters, the eventual conversion to
+The glucose value is represented as a 16-bit little endian value. It represent
+the blood sugar in mg/dL. As most other meters, the eventual conversion to
 mmol/L happens only at display time.
 
-The flags are not currently well understood; the device allows setting
-comments on the readings, but these responses are not visible from the
-interface of the device itself; a "speech bubble" appears, steady or
-blinking, on some of the readings instead. The original software does
-not seem to expose the data correctly either.
+The meal flag is a single byte, representing a tristate of no information,
+before meal reading, and after meal reading. This meal information cannot be set
+on the Verio meter, but can be set on the Select Plus.
 
-At least two information are likely to be found in these flags, or in
-the following constant `0x0b` byte: the type of measurement (plasma v
-whole blood) and the measurement site (fingertip), as those are
-visible in the original software's UI. Meal information might also be
-present. OneTouch Ultra2 provided a simple mapping of meal and comment
-codes.
+The second set of flags are not currently well understood; Verio meters allow
+setting comments on the readings, but these responses are not visible from the
+interface of the device itself; a "speech bubble" appears, steady or blinking,
+on some of the readings instead. The original software does not seem to expose
+the data correctly either. These may be used by other models such as Select
+Plus.
+
+At least two information are likely to be found in these flags, or in the
+following constant `0x0b` byte: the type of measurement (plasma v whole blood)
+and the measurement site (fingertip), as those are visible in the original
+software's UI.
 
 ### MEMORY ERASE
 
