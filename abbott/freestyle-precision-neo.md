@@ -28,7 +28,7 @@ them.
 
 ## Protocol
 
-This device uses the [shared HID protocol](shared-hid-protocol) used by other
+This device uses the [shared HID protocol](shared-hid-protocol.md) used by other
 meters in the FreeStyle family. All messages that have been identified are
 considered text commands and use message type `0x60`.
 
