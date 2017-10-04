@@ -12,7 +12,7 @@ Reverse engineered by Pascal Fribi, editing and expansion by Diego Elio Pettenò
 
 ## Protocol
 
-This device uses the [shared HID protocol](shared-hid-protocol) used by other
+This device uses the [shared HID protocol](shared-hid-protocol.md) used by other
 meters in the FreeStyle family. Most of the text command share the same message
 type `0x60`, except where otherwise noted.
 
