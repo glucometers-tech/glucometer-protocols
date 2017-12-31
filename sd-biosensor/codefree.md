@@ -41,24 +41,26 @@ The serial port should be configured as such:
 * 1 stop bit;
 * 38400 baud rate.
 
-### Message structure
+### Packet structure
 
-Messages follow a simple format:
+Packets follow a simple format:
 
-    message = STX direction length message checksum ETX
+    packet = STX direction length message checksum ETX
     STX = %x53
+
     direction = direction-in / direction-out
     direction-in = %x20
     direction-out = %x10
+
     length = OCTET
-    message = [length-5]OCTET
+    message = [length-3]OCTET
     checksum = OCTET
     ETX = %xAA
 
-The messages are variable length, with the following length provided in the
-third byte of the message (length does not include the three bytes up to that
-point). The second byte is a direction indication (device-to-host and
-host-to-device).
+The packets are variable length, with the following length provided in the third
+byte of the packets (length does not include the three bytes up to that point,
+but does include checksum and ETX). The second byte is a direction indication
+(device-to-host and host-to-device).
 
 The second to last byte is a checksum calculated as an 8-bit bitwise xor of the
 `message` bytes.
