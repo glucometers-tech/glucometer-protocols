@@ -24,6 +24,7 @@ contributors.
   - [FreeStyle Libre](abbott/freestyle-libre.md)
   - [FreeStyle Precision Neo](abbott/freestyle-precision-neo.md)
 * LifeScan
+  - [Shared Binary Protocol](lifescan/shared-binary-protocol.md)
   - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
 * SD Biosensor
   - [SD Codefree](sd-biosensor/codefree.md)

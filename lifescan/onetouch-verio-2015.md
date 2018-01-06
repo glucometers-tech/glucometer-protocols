@@ -88,35 +88,22 @@ Note that while the USB protocol information (product, serial number)
 match the device's information, only the vendor identification is
 visible in response to the **INQUIRY** command.
 
-## Message structure
+## Packet Structure
 
-Message, both sent and received, in any of the registers follow the
-same structure:
+The registers are all 512 bytes in size (SCSI block size), and contain a padded
+packet as defined by the [Shared Binary Protocol](shared-binary-protocol.md).
 
-    message = STX length message ETX checksum
-    STX = %x02
-    length = OCTET
-    link_control = %x00         ; unused by device
-    message = [length - 6]OCTET
-    ETX = %x03
-    checksum = 2OCTET           ; 16-bit little-endian value
+Within the packet, the `link-control` byte is unused and always left at
+`0x00`.
 
-The messages are variable length, with the length provided by the byte following
-the `STX` constant. The value of length includes the STX/ETX constants, the
-length itself and the checksum, leaving the body of the message 6 bytes short.
+The `command-prefix` byte may have one of accepted values as defined below, but
+for ease of implementation, `0x03` is suggested, as the **READ PARAMETER**
+command will not echo the chosen prefix, but always return `0x03`.
 
-As no command was recorded to use more than 255 bytes, the following byte is
-assumed to be an equivalent to the `link_control` byte in the serial protocol
-used by the UltraEasy and Verio IQ.
-
-The `STX` and `ETX` constants to mark start and end of the message match the
-constants used in other LifeScan serial protocols.
-
-The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and stored
-little-endian, again the same as used in other LifeScan protocols.
-
-If the checksum is not valid, the device will not process the message, and the
-next READ request to the LBA will return the content as written.
+    packet                  ; see shared-binary-protocol.md
+    link-control = %x00     ; not used by this device
+    command-prefix = %x03 / ; suggested
+                     %x04 / %x05
 
 ## Messages
 
@@ -144,7 +131,7 @@ hardware device. The request is sent through, and the response read
 from, `lba3`.
 
     QUERY-request = STX %x0a %x00 ; message length = 10 bytes
-                    %x04 %xE6 %x02 query-selector
+                    %x03 %xE6 %x02 query-selector
                     ETX checksum
 
     query-selector = query-selector-serial /
@@ -169,7 +156,7 @@ then follows with what appears to be a UTF-16-LE string, NULL
 terminated (except for the `query-selector-unknown` response.)
 
     QUERY-response = STX length
-                     %x04 %x06 *WCHAR-LE %x00 %x00
+                     %x03 %x06 *WCHAR-LE %x00 %x00
                      ETX checksum
 
 #### Languages
@@ -225,7 +212,7 @@ The meter repors a number of parameters in a similar fashion to the
 from, `lba4`.
 
     READ-PARAMETER-request = STX %x09 %x00 ; message length = 9 bytes
-                             %x04 parameter-selector OCTET
+                             %x03 parameter-selector OCTET
                              ETX checksum
 
     parameter-selector = parameter-selector-timefmt /
@@ -264,11 +251,11 @@ The request to query the device time is fairly simple, and is
 communicated through `lba3`:
 
     READ RTC-request = STX %x09 %x00 ; message length = 9 bytes
-                       %x04 %x20 %x02
+                       %x03 %x20 %x02
                        ETX checksum
 
     READ RTC-response = STX %x0c %x00 ; message length = 12 bytes
-                        %x04 %x06 timestamp
+                        %x03 %x06 timestamp
                         ETX checksum
 
     timestamp = 4OCTET ; 32-bit little-endian value
@@ -288,11 +275,11 @@ to the value (the UNIX timestamp of the device's own epoch.)
 The **WRITE RTC** command is also communicated through `lba3`.
 
     WRITE RTC-request = STX %x0d %x00 ; message length = 13 bytes
-                        %x04 %x20 %x01 timestamp
+                        %x03 %x20 %x01 timestamp
                         ETX checksum
 
     WRITE RTC-response = STX %x08 %x00 ; message length = 8 bytes
-                         %x04 %x06
+                         %x03 %x06
                          ETX checksum
 
 ### READ RECORD COUNT
@@ -301,11 +288,11 @@ The following messages correspond to request and response for the
 number of records in memory. The messages are transmitted over `lba3`.
 
     READ-RECORD-COUNT-request = STX %x09 %x00 ; message length = 9 bytes
-                                %x04 %x27 %x00
+                                %x03 %x27 %x00
                                 ETX checksum
 
     READ-RECORD-COUNT-response = STX %x0a %x00 ; message length = 10 bytes
-                                 %x04 %x06 message-count
+                                 %x03 %x06 message-count
                                  ETX checksum
     message-count = 2OCTET ; 16-bit little-endian value
 
@@ -315,19 +302,19 @@ The records are then accessed through indexes between 0 and
 `message-count` (excluded) as reported by READ RECORD COUNT.
 
     READ-RECORD-request = STX %x0c %x00 ; message length = 12 bytes
-                          %x04 %x31 %x02 record-number %x00
+                          %x03 %x31 %x02 record-number %x00
                           ETX checksum
     record-number = 2OCTET ; 16-bit little-endian value
 
-The record number is assumed to be a 16-bit little endian value, as
-the Verio 2015 is reported to store up to 500 results. It is also
-consistent with the UltraEasy protocol.
+The record number is assumed to be a 16-bit little endian value, as the Verio
+2015 is reported to store up to 500 results. It is also consistent with
+the [OneTouch UltraEasy](onetouch-ultraeasy.md) protocol.
 
 Records are stored in descending time order, which means record `0` is
 the latest reading.
 
     READ-RECORD-response = STX %x18 %x00 ; message length = 24 bytes
-                           %x04 %x06 inverse-record-number
+                           %x03 %x06 inverse-record-number
                            %x00 lifetime-counter
                            timestamp glucose-value flag-meal %x00
                            other-flags %x0b %x00
@@ -378,11 +365,11 @@ The memory erase command deletes all the records in the device's
 memory. It is communicated over `lba3`.
 
     MEMORY-ERASE-request = STX %x08 %x00 ; message length = 8 bytes
-                           %x04 %x1a
+                           %x03 %x1a
                            ETX checksum
 
     MEMORY-ERASE-response = STX %x08 %x00 ; message length = 8 bytes
-                            %x04 %x06
+                            %x03 %x06
                             ETX checksum
 
 Remember that this action is irreversible.
