@@ -16,9 +16,10 @@ than a TRS (stereo-jack.)
 
 ### USB IDs
 
-| Device              | Vendor ID | Product ID |
-| ---                 | ---       | ---        |
-| OneTouch Verio 2015 | 2766      | 0000       |
+| Device               | Vendor ID | Product ID |
+| ---                  | ---       | ---        |
+| OneTouch Verio 2015  | 2766      | 0000       |
+| OneTouch Select Plus | 2766      | 1000       |
 
 ## Communication
 
