@@ -94,32 +94,28 @@ same structure:
 
     message = STX length message ETX checksum
     STX = %x02
-    length = 2OCTET             ; 16-bit little-endian value
+    length = OCTET
+    link_control = %x00         ; unused by device
     message = [length - 6]OCTET
     ETX = %x03
     checksum = 2OCTET           ; 16-bit little-endian value
 
-The messages are variable length, with the length provided by the
-16-bit word following the `STX` constant. The value of length includes
-the STX/ETX constants, the length itself and the checksum, leaving the
-body of the message 6 bytes short.
+The messages are variable length, with the length provided by the byte following
+the `STX` constant. The value of length includes the STX/ETX constants, the
+length itself and the checksum, leaving the body of the message 6 bytes short.
 
-While no command has been recorded using more than 255 bytes, the
-length is assumed to be 16-bit to match out of band information in the
-original software's debug logs. The size of the register also makes
-the maximum lenght of the command 512 bytes (0x200).
+As no command was recorded to use more than 255 bytes, the following byte is
+assumed to be an equivalent to the `link_control` byte in the serial protocol
+used by the UltraEasy and Verio IQ.
 
-The `STX` and `ETX` constants to mark start and end of the message
-match the constants used in the OneTouch Ultra Easy serial protocol,
-and are thus named the same way as in its specs.
+The `STX` and `ETX` constants to mark start and end of the message match the
+constants used in other LifeScan serial protocols.
 
-The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and
-stored little-endian, again the same as used in the OneTouch Ultra
-Easy protocol.
+The `checksum` is a variant of CRC-16-CCITT, seeded at `0xFFFF`, and stored
+little-endian, again the same as used in other LifeScan protocols.
 
-If the checksum is not valid, the device will not process the message,
-and the next READ request to the LBA will return the content as
-written.
+If the checksum is not valid, the device will not process the message, and the
+next READ request to the LBA will return the content as written.
 
 ## Messages
 
