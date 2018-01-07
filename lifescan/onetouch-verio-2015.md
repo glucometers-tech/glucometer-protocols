@@ -104,6 +104,15 @@ command will not echo the chosen prefix, but always return `0x03`.
     link-control = %x00     ; not used by this device
     command-prefix = %x03 / ; suggested
                      %x04 / %x05
+## Timestamp Format
+
+Timestamps, both for the device's clock and for the reading records, are defined
+as a little-endian 32-bit number, representing the number of seconds since
+**2000-01-01 00:00:00**.
+
+It should not be mistaken for a UNIX timestamp, although the format is
+compatible. To convert to UNIX timestamp, you should add `946684800` to the
+value (the UNIX timestamp of the device's own epoch.)
 
 ## Messages
 
@@ -240,8 +249,9 @@ parameter requested.
     parameter-response-datefmt = *WCHAR-LE %x00 %x00
 
     parameter-response-unit = parameter-unit-mgdl / parameter-unit-mmol
-    parameter-unit-mgdl = %x00 %x00 %x00 %x00
-    parameter-unit-mmoll = %x01 %x00 %x00 %x00
+                              %x00 %x00 %x00
+    parameter-unit-mgdl = %x00
+    parameter-unit-mmoll = %x01
 
 Time and date formats match those returned by the **QUERY** command.
 
@@ -250,35 +260,25 @@ Time and date formats match those returned by the **QUERY** command.
 The request to query the device time is fairly simple, and is
 communicated through `lba3`:
 
-    READ RTC-request = STX %x09 %x00 ; message length = 9 bytes
+    READ-RTC-request = STX %x09 %x00 ; message length = 9 bytes
                        %x03 %x20 %x02
                        ETX checksum
 
-    READ RTC-response = STX %x0c %x00 ; message length = 12 bytes
+    READ-RTC-response = STX %x0c %x00 ; message length = 12 bytes
                         %x03 %x06 timestamp
                         ETX checksum
 
     timestamp = 4OCTET ; 32-bit little-endian value
 
-#### Timestamp format
-
-Timestamp, both for the device's clock and for the reading records, is
-defined as a little-endian 32-bit number, representing the number of
-seconds since **2000-01-01 00:00:00**.
-
-It should not be mistaken for a UNIX timestamp, although the format is
-compatible. To convert to UNIX timestamp, you should add `946684800`
-to the value (the UNIX timestamp of the device's own epoch.)
-
 ### WRITE RTC
 
 The **WRITE RTC** command is also communicated through `lba3`.
 
-    WRITE RTC-request = STX %x0d %x00 ; message length = 13 bytes
+    WRITE-RTC-request = STX %x0d %x00 ; message length = 13 bytes
                         %x03 %x20 %x01 timestamp
                         ETX checksum
 
-    WRITE RTC-response = STX %x08 %x00 ; message length = 8 bytes
+    WRITE-RTC-response = STX %x08 %x00 ; message length = 8 bytes
                          %x03 %x06
                          ETX checksum
 
@@ -299,7 +299,7 @@ number of records in memory. The messages are transmitted over `lba3`.
 ### READ RECORD
 
 The records are then accessed through indexes between 0 and
-`message-count` (excluded) as reported by READ RECORD COUNT.
+`message-count` (excluded) as reported by **READ RECORD COUNT**.
 
     READ-RECORD-request = STX %x0c %x00 ; message length = 12 bytes
                           %x03 %x31 %x02 record-number %x00
@@ -358,6 +358,10 @@ At least two information are likely to be found in these flags, or in the
 following constant `0x0b` byte: the type of measurement (plasma v whole blood)
 and the measurement site (fingertip), as those are visible in the original
 software's UI.
+
+*Caution:* at least one byte in the record will likely represent a control
+solution test, rather than an actual blood glucose reading; which value is that
+is still unknown.
 
 ### MEMORY ERASE
 
