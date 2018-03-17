@@ -28,6 +28,8 @@ The following text commands are instead added:
   * `$dbrnum?`
   * `$history?`
   * `$arresult?`
+  * `$swreset`
+  * `$resetpatient`
 
 ## `$dbrnum?`
 
@@ -205,3 +207,9 @@ field 19. shows which comments are actually set.
   18. `unknown`
   19. `unknown`
   20. `unknown`
+
+## `$swreset` and `$resetpatient`
+
+These two commands allow resetting the memory of a FreeStyle Libre
+device. Expected response is not documented as they have not been tested on a
+device yet.
