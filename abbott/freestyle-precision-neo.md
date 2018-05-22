@@ -46,8 +46,6 @@ shared protocol documentation.
 The first field in the record specify the type of record; type 7 is a blood
 glucose reading, type 10 is an insulin input that was made on the device.
 
-The `HI` literal signifies a reading that was outside the range of the device 
-(or more likely of the strip.) For glucose results, this is an unknown value.
 
 #### Blood glucose record fields
 
@@ -59,7 +57,7 @@ The `HI` literal signifies a reading that was outside the range of the device
   6. `hour = 1*2DIGIT`
   7. `minute = 1*2DIGIT`
   8. `unknown`
-  9. `value = 1*DIGIT`
+  9. `value = 1*DIGIT / "HI"`
   10. `unknown`
   11. `unknown`
   12. `unknown`
@@ -70,6 +68,9 @@ The `HI` literal signifies a reading that was outside the range of the device
   17. `unknown`
   18. `unknown`
   19. `unknown`
+
+The `HI` literal signifies a reading that was outside the range of the device 
+(or more likely of the strip.) For glucose results, this is an unknown value.
 
 #### Insulin record fields
 
