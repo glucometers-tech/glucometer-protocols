@@ -7,6 +7,7 @@ the following models:
 
  * *OneTouch Verio 2015* (microUSB connector)
  * *OneTouch Select Plus*
+ * *OneTouch Select Plus Flex* (USB connection only)
 
 ## Important device notes
 
@@ -16,10 +17,11 @@ than a TRS (stereo-jack.)
 
 ### USB IDs
 
-| Device               | Vendor ID | Product ID |
-| ---                  | ---       | ---        |
-| OneTouch Verio 2015  | 2766      | 0000       |
-| OneTouch Select Plus | 2766      | 1000       |
+| Device                    | Vendor ID | Product ID |
+| ---                       | ---       | ---        |
+| OneTouch Verio 2015       | 2766      | 0000       |
+| OneTouch Select Plus      | 2766      | 1000       |
+| OneTouch Select Plus Flex | 2766      | 1004       |
 
 ## Communication
 
