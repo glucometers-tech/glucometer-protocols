@@ -1,6 +1,6 @@
 # OneTouch Verio IQ
 
-Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu), based
+Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com), based
 on
 [Tidepool](https://github.com/tidepool-org/chrome-uploader/blob/master/lib/drivers/onetouch/oneTouchVerioIQ.js).
 

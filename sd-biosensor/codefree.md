@@ -1,6 +1,6 @@
 # SD Codefree
 
-Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
+Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com).
 
 ## Cable
 

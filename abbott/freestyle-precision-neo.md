@@ -1,6 +1,6 @@
 # FreeStyle Precision Neo, Optium Neo, Optium Neo H
 
-Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
+Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com).
 
 ## Important device notes
 

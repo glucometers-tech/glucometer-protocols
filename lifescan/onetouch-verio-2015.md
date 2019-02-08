@@ -1,6 +1,6 @@
 # OneTouch Verio 2015
 
-Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.eu).
+Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com).
 
 The communication protocol as described in this document applies to
 the following models:
