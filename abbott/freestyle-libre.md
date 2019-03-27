@@ -116,7 +116,9 @@ change event.
       represent the blood sugar reading in mg/dL.
 
       When `reading-type` is `blood-ketone`, this represent the β-ketone
-      reading in mmol/l after apply ceil(`value`/2)/10.
+      reading in mmol/l after apply `value`/18. It seems that the value is reported 
+      in mg/dL and the conversion is using the wrong molar mass system for conversion.
+      But based on actual measurements the results are correct this way.
   14. `unknown = "0" / "1"`
 
       This appears to be 0 for values read from a blood strip, and 1 for values
