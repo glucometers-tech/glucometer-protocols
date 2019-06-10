@@ -16,9 +16,7 @@ The known devices sharing the same base protocol are the following:
   * **FreeStyle Optium Neo H**.
 
 The FreeStyle Precision Neo (at the very least) can also read special β-ketones
-testing strips. Unfortunately compatible strips are not available in Europe, so
-the reverse engineering in this document does not include information about
-them.
+testing strips.
 
 ### USB IDs
 
@@ -98,3 +96,18 @@ lunch-short-acting = "2"
 evening-long-acting = "3"
 dinner-short-acting = "4"
 ```
+
+#### β-ketones record fields
+
+  1. `type = "9"`
+  2. `id`
+  3. `month = 1*2DIGIT`
+  4. `day = 1*2DIGIT`
+  5. `year = 1*2DIGIT`
+  6. `hour = 1*2DIGIT`
+  7. `minute = 1*2DIGIT`
+  8. `unknown`
+  9. `value = 1*DIGIT`
+  10. `unknown`
+  
+  The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value by 18 to get a proper Ketone value in mmol/L.
