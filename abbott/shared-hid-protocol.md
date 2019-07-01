@@ -169,12 +169,15 @@ respond with `<no-serial-num>` during initialization.
     date-query-response = date-value CRLF
 
     date-value = ( month "," day "," year )
-    month = 1*2DIGIT
-    day = 1*2DIGIT
-    year 1*2DIGIT
+    month = 1*3DIGIT
+    day = 1*3DIGIT
+    year 1*3DIGIT
 
 Fetch or set the current date as seen by the device. If a date value is passed
 following the command, it'll be interpreted as a set-date.
+
+If the device does not have a valid date settings (e.g. the real time clock lost
+its power), the value 255 is reported for all fields.
 
 Note the year value is defined at most with two digits, the value 2000 needs to
 be added (or subtracted) to match the current year.
@@ -189,10 +192,13 @@ error.
     time-query-response = time-value CRLF
 
     time-value = hour "," minute
-    hour = 1*2DIGIT
-    minute = 1*2DIGIT
+    hour = 1*3DIGIT
+    minute = 1*3DIGIT
 
 Fetch or set the current time as seen by the device.
+
+If the device does not have a valid time settings (e.g. the real time clock lost
+its power), the value 255 is reported for all fields.
 
 In case of successful setting of date, the command is confirmed with no further
 information; in case of error, the `<message>` field will report the encountered
