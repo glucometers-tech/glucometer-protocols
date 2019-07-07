@@ -215,7 +215,7 @@ error.
 Returns the patient name as configured in the device.
 
 Note that while an empty response is valid, an empty value when setting the
-variable is not accepted.
+variable is not always accepted. The behaviour depends meter by meter.
 
 ### `$ptid`
 
