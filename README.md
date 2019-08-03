@@ -29,6 +29,8 @@ contributors.
   - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
 * SD Biosensor
   - [SD Codefree](sd-biosensor/codefree.md)
+* TaiDoc
+  - [TD-4277](taidoc/td4277.md)
 
 ## Structure
 
