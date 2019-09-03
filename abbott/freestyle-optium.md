@@ -116,7 +116,7 @@ Each result is returned in its own line complete with the timestamp and some
     result = result-value SP
              SP date-2-nosec
              SP result-type
-             SP 0x00
+             SP "0x00"
     result-value = 3DIGIT / ( "HI" SP )
     result-type = "G" / "K"
 
