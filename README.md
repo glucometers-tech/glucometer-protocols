@@ -19,6 +19,7 @@ contributors.
 ## Content
 
 * Abbott Laboratories
+  - [FreeStyle Lite](abbott/freestyle-lite.md)
   - [FreeStyle Optium](abbott/freestyle-optium.md)
   - [Shared HID protocol](abbott/shared-hid-protocol.md)
   - [FreeStyle Libre](abbott/freestyle-libre.md)
