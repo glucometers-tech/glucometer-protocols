@@ -6,8 +6,8 @@ whether they are on the market or not.
 
 ## License
 
-This work is licensed under a
-[Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+This work is licensed under a [Creative Commons Attribution 4.0 International
+License](https://creativecommons.org/licenses/by/4.0/).
 
 Use the information you'll find in this page for whatever purpose you
 see fit, but there is no warranty about the accuracy of this
