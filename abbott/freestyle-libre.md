@@ -115,10 +115,11 @@ change event.
       When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
       represent the blood sugar reading in mg/dL.
 
-      When `reading-type` is `blood-ketone`, this represent the β-ketone
-      reading in mmol/l after apply `value`/18. It seems that the value is reported 
-      in mg/dL and the conversion is using the wrong molar mass system for conversion.
-      But based on actual measurements the results are correct this way.
+      When `reading-type` is `blood-ketone`, this represent the β-ketone reading
+      in mmol/l after apply `value`/18. It seems that the value is reported in
+      mg/dL and the conversion is using the wrong molar mass system for
+      conversion.  But based on actual measurements the results are correct this
+      way.
   14. `unknown = "0" / "1"`
 
       This appears to be 0 for values read from a blood strip, and 1 for values
@@ -177,7 +178,8 @@ change event.
   41. `unknown` †
   42. `unknown` †
   43. `unknown` †
-  44. Value of rapid acting insulin in 0.5 IE. If you want proper IE, divide by 2.
+  44. Value of rapid acting insulin in 0.5 IE. If you want proper IE, divide by
+      2.
 
 † The number of columns in a record can be different. If a rapid acting insulin
 value has been set, then it is > 44, otherwise the record has only entries up to

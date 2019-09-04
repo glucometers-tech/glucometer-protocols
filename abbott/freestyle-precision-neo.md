@@ -67,7 +67,7 @@ glucose reading, type 10 is an insulin input that was made on the device.
   18. `unknown`
   19. `unknown`
 
-The `HI` literal signifies a reading that was outside the range of the device 
+The `HI` literal signifies a reading that was outside the range of the device
 (or more likely of the strip.) For glucose results, this is an unknown value.
 
 #### Insulin record fields
@@ -109,5 +109,6 @@ dinner-short-acting = "4"
   8. `unknown`
   9. `value = 1*DIGIT`
   10. `unknown`
-  
-  The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value by 18 to get a proper Ketone value in mmol/L.
+
+  The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value
+  by 18 to get a proper Ketone value in mmol/L.
