@@ -134,12 +134,11 @@ The `HI` literal signify a reading that was outside the range of the device (or
 more likely of the strip.) For glucose results, this is unknown, where for
 β-ketones it is known as 8.0 mmol/l.
 
-#### `tim` command
+#### `$tim` command
 
-Setting the time on the device is the only command that accept parameters, it is
-also the only known command that does not start with the `$` character.
+Setting the time on the device is the only command that accept parameters.
 
-    tim-command = "tim" tim-parameters
+    tim-command = "$tim" tim-parameters
     tim-parameters = "," tim-month "," tim-day "," tim-year
                      "," tim-hour "," tim-minute
 
