@@ -48,15 +48,16 @@ The protocol knows two type of messages: commands and responses.
     generic-message = command / response
 
 Exchange is initiated by the host by sending one of the known commands. The
-first command sent by the host is usually ignored by the device, so if a single
-empty response is returned, the command should be retried.
+first command sent by the host is sometimes ignored by the device, so if a
+single empty response is returned, the command should be retried.
 
-The only command that accept parameters is `tim`.
+The only known command that accept parameters is `tim`.
 
-    commands = ( "$colq" / "$xmem" / "tim" tim-parameters ) CR LF
+    command = "$" *ALPHA [parameters] CR LF
+    parameters = "," *VCHAR
 
-Lines are generally terminated by the `CR LF` sequence. Some results sometimes
-terminated by an okay sequence.
+Lines are generally terminated by the `CR LF` sequence. Most commands are
+terminated by a success sequence.
 
     command-succeeded = "CMD OK" CR LF
 
