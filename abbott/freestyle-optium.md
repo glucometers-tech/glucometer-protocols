@@ -154,6 +154,29 @@ setting the time to 2099-12-31 23:59.
 The device does not suffer from [Year 2038](https://en.wikipedia.org/wiki/Y2038)
 problem.
 
+#### `$temp` command
+
+The device appears to contain a temperature sensor that can be accessed with the
+`$temp` command:
+
+    temp-response = "Temperature =" SP temperature SP "*C" SP "/" SP
+                    temperature SP "*F" CR LF
+                    command-succeeded
+    temperature = SP 2DIGIT "." 2DIGIT  ; not tested with numbers over 100.
+
+Temperature is reported in both Celsius and Farenheit. The leading space to the
+number is suspected to be a padding for values over 100.
+
+#### Other commands
+
+The following commands have been identified as valid by bruteforcing (they
+return `command-succeeded`), but are not understood:
+
+  * `$cksm`: returns a checksum (of memory? storage? ROM?).
+  * `$coly`: appears to disconnect and power off the meter.
+  * `$dtim`: no visible effect.
+  * `$vrom`: no visible effect (verify rom?).
+
 #### Date formats
 
 This device, similarly to previous Abbott devices, implements multiple date
