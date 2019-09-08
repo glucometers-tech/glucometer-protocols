@@ -54,31 +54,31 @@ known:
   * `$actthm?`
   * `$wktrend?`
   * `$gunits?`
-  * `$clktyp?,
+  * `$clktyp?`
   * `$alllang?`
   * `$lang?`
   * `$inslock?`
   * `$actinscal?`
   * `$iobstatus?`
-  * `$foodunits?,
+  * `$foodunits?`
   * `$svgsdef?`
   * `$corsetup?`
   * `$insdose?`
   * `$inslog?`
   * `$inscalsetup?`
-  * `$carbratio?,
+  * `$carbratio?`
   * `$svgsratio?`
   * `$mlcalget,3`
   * `$cttype?`
   * `$bgdrop?`
   * `$bgtrgt?`
-  * `$bgtgrng?,
+  * `$bgtgrng?`
   * `$ntsound?`
   * `$btsound?`
   * `$custthm?`
   * `$taglang?`
   * `$tagsenbl?`
-  * `$tagorder?,
+  * `$tagorder?`
   * `$result?`
   * `$gettags,2,2`
   * `$frststrt?`
