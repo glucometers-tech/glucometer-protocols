@@ -31,13 +31,13 @@ The following text commands are instead added:
   * `$swreset`
   * `$resetpatient`
 
-## `$dbrnum?`
+### `$dbrnum?`
 
     dbrnum-response = "DBRECORDS = " 1*DIGIT CRLF
 
 The response includes the number of records in the database (history results.)
 
-## `$history?`
+### `$history?`
 
 The `$history?` command returns all the automatic measurements taken by the
 sensors. It does not include the immediate measurements on user request, nor
@@ -46,7 +46,7 @@ strip measurements (blood glucose and β-ketone).
 The output follows the *Multiple record command* output format as described in
 the shared protocol documentation.
 
-### Record fields
+#### Record fields
 
   1. `record-id = 1*5DIGIT`
   2. `unknown = "12"`
@@ -73,7 +73,7 @@ the shared protocol documentation.
       error flag is set, the remaining bits refer to more error details that are
       not clear.
 
-## `$arresult?`
+### `$arresult?`
 
 The `$arresult?` returns manual measurements taken by the user, either by
 scanning the sensor or using a testing strip (for either blood sugar or β-ketone
@@ -86,7 +86,7 @@ Multiple record types have been identified; the second value in the record
 identifies the type; type 2 is a manual reading, record type 5 identifies a time
 change event.
 
-### Reading record fields
+#### Reading record fields
 
   1. `record-id = 1*5DIGIT`
   2. `record-type = "2"`
@@ -189,7 +189,7 @@ comment 6.
 field 19. shows which comments are actually set.
 
 
-### Time change record fields
+#### Time change record fields
 
   1. `record-id = 1*5DIGIT`
   2. `record-type = "5"`
@@ -212,8 +212,38 @@ field 19. shows which comments are actually set.
   19. `unknown`
   20. `unknown`
 
-## `$swreset` and `$resetpatient`
+### `$swreset` and `$resetpatient`
 
 These two commands allow resetting the memory of a FreeStyle Libre
 device. Expected response is not documented as they have not been tested on a
 device yet.
+
+### Other Commands
+
+The following commands are sent by various software used by the Libre, but their
+output is not obvious.
+
+#### `$brandname?`
+
+Appears to report the brand name of the device, possibly differing among
+marketing regions.
+
+    brandname-cmd = "$brandname?"
+    brandname-msg = "FreeStyle Libre" CRLF
+
+#### `$uom?`
+
+Unknown response. Best guess this _may_ be "Unit Of Measure".
+
+    uom-cmd = "$uom?"
+    uom-msg = "0" CRLF  ; on a mmol/l device
+
+The theory of this being the unit of measure is supported by the `$gunits?`
+command reporting `1` for a mg/dL FreeStyle Precision Neo reader.
+
+#### `$marketlev?`
+
+Unknown respoonse.
+
+    marketlev-cmd = "$marketlev?"
+    marketlev-msg = "1,0,0,0" CRLF
