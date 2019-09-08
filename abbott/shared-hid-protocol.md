@@ -112,8 +112,11 @@ is represented by the string `00000000`.
 Different commands can return a list of records. While their meaning depends on
 the issued command, the reported format fits the same syntax:
 
-    multi-records = *( record CRLF )
-                    record-count "," checksum
+    multi-records = empty-log / log
+
+    empty-log = "Log Empty" CRLF
+    log = *( record CRLF )
+          record-count "," checksum
 
     record = *( value "," ) value
     value = *VCHAR
