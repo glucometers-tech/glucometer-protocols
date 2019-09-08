@@ -20,6 +20,17 @@ cable is supported at least from Linux 3.14 and later.
 
 ## Protocol
 
+### Serial port configuration
+
+The serial port should be configured as such:
+
+* 8 data bits;
+* no parity bits;
+* 1 stop bit;
+* 19200 baud rate.
+
+### Messages and commands
+
 The FreeStyle protocol has 2 types of messages a command and a result. Currently
 only one command exists which returns multiple results.
 
