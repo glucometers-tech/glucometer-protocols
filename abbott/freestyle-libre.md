@@ -333,3 +333,126 @@ Unknown respoonse.
 
     marketlev-cmd = "$marketlev?"
     marketlev-msg = "1,0,0,0" CRLF
+
+#### `$lang?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    lang-cmd = "$lang?"
+    lang-msg = "6" CRLF  ; On an Engish (UK) unit.
+
+#### `$iobstatus?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    iobstatus-cmd = "$iobstatus?"
+    iobstatus-msg = "255,255" CRLF
+
+#### `$foodunits?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    foodunits-cmd = "$foodunits?"
+    foodunits-msg = "0" CRLF
+
+#### `$svgsdef?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    svgsdef-cmd = "$svgsdef?"
+    svgsdef-msg = "255" CRLF
+
+#### `$corsetup?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    corsetup-cmd = "$corsetup?"
+    corsetup-msg = "255" CRLF
+
+#### `$insdose?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    insdose-cmd = "$insdose?"
+    insdose-msg = "1" CRLF
+
+#### `$inscalsetup?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    inscalsetup-cmd = "$inscalsetup?"
+    inscalsetup-msg = "0,0" CRLF
+
+#### `$carbratio?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    carbratio-cmd = "$carbratio?"
+    carbratio-msg = "0,0" CRLF
+                    "1,0" CRLF
+                    "2,0" CRLF
+                    "3,0" CRLF
+                    "4,0" CRLF
+                    "0" CRLF
+
+#### `$svgsratio?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    svgsratio-cmd = "$svgsratio?"
+    svgsratio-msg = "0,0" CRLF
+                    "1,0" CRLF
+                    "2,0" CRLF
+                    "3,0" CRLF
+                    "4,0" CRLF
+                    "0" CRLF
+
+#### `$cttype?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    cttype-cmd = "$cttype?"
+    cttype-msg = "255" CRLF
+
+#### `$bgdrop?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    bgdrop-cmd = "$bgdrop?"
+    bgdrop-msg = "0,255" CRLF
+                 "1,0" CRLF
+                 "2,0" CRLF
+                 "3,0" CRLF
+                 "4,0" CRLF
+                 "0" CRLF
+
+#### `$bgtrgt?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    bgtrgt-cmd = "$bgtrgt?"
+    bgtrgt-msg = "0,0" CRLF
+                 "1,0" CRLF
+                 "2,0" CRLF
+                 "3,0" CRLF
+                 "4,0" CRLF
+                 "0" CRLF
+
+#### `$bgtgrng?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    bgtgrng-cmd = "$bgtgrng?"
+    bgtgrng-msg = "0,0,0" CRLF
+                  "1,0,0" CRLF
+                  "2,0,0" CRLF
+                  "3,0,0" CRLF
+                  "4,0,0" CRLF
+                  "0" CRLF
+
+#### `$tagsenbl?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+    tagsenbl-cmd = "$tagsenbl?"
+    tagsenbl-msg = CRLF
