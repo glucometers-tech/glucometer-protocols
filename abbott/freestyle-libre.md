@@ -37,6 +37,8 @@ The following text commands are instead added:
 
 The response includes the number of records in the database (history results.)
 
+This number is permanent across factory resets.
+
 ### `$history?`
 
 The `$history?` command returns all the automatic measurements taken by the
@@ -212,11 +214,95 @@ field 19. shows which comments are actually set.
   19. `unknown`
   20. `unknown`
 
-### `$swreset` and `$resetpatient`
+### `$swreset`
 
-These two commands allow resetting the memory of a FreeStyle Libre
-device. Expected response is not documented as they have not been tested on a
-device yet.
+Restart the Libre device, not erasing any information.
+
+    swreset-cmd = "$swreset"
+    swreset-response = CRLF
+
+### `$resetpatient`
+
+This command completely resets the FreeStyle Libre reader, bringing it
+effectively to factory reset.
+
+CAUTION! This erases all information on the device, including currently-enabled
+sensors.
+
+While not accessible via the protocol, a reset does not erases the "Event Log"
+as available on the device.
+
+    resetpatient-cmd = "$resetpatient"
+    resetpatient-response = *("Erasing Sector @ 0x" 6 HEXDIGIT CRLF)
+
+### Sound Settings
+
+It's possible to query and set the notification and touch tone settings of
+FreeStyle Libre devices through two commands.
+
+The commands have first been identified on [FreeStyle
+Insulinx](freestyle-insulinx) but are not tested on it.
+
+    notifications = notifications-enabled / notifications-disabled
+    notifications-enabled = "1"
+    notifications-disabled = "0"
+
+    vibrate = vibrate-enabled / vibrate-disabled
+    vibrate-enabled = "1"
+    vibrate-disabled = "0"
+
+    touch-tone = touch-tone-enabled / touch-tone-disabled
+    touch-tone-enabled = "1"
+    touch-tone-disabled = "0"
+
+    volume = volume-high / volume-low
+    volume-high = "1"
+    volume-low = "0"
+
+    ntsound-cmd = "$ntsound" ("?" / "," notifications "," vibrate)
+    ntsound-query-response = notifications "," vibrate CRLF
+
+    btsound-cmd = "$btsound" ("?" / "," touch-tone "," volume)
+    btsound-query-response = touch-tone "," volume
+
+### Reminders (`$getrmndr`)
+
+It's possible to read the reminders status for the reader device.
+
+The commands have first been identified on [FreeStyle
+Insulinx](freestyle-insulinx) but are not tested on it.
+
+    get-reminder-command = "$getrmndr,0"
+    get-reminder-response = 12 (reminder-entry CRLF)
+    reminder-entry = reminder-repeat ","
+                     reminder-action ","
+                     ( reminder-enabled / reminder-disabled ) ","
+                     reminder-hour "," reminder-minute
+
+    reminder-repeat = reminder-off / reminder-daily / reminder-timer
+    reminer-off = "0"
+    reminder-once = "1"
+    reminder-daily = "2"
+    reminder-timer = "3"
+
+    reminder-action = reminder-glucose / reminder-insulin / reminder-alarm
+    reminder-glucose = "10"
+    reminder-insulin = "11"
+    reminder-alarm = "12"
+
+    reminder-enabled = "1"
+    reminder-disabled = "0"
+
+    reminder-hour = 1*2 DIGIT
+    reminder-minute = 1*2 DIGIT
+
+Note that while other `$getrmndr` arguments than 0 will be accepted by the
+device, they return no data at all.
+
+When the repeat is "off" (`0`), all other fields are also `0`.
+
+When the repeat is timer, the hour/minutes are the repeat time from the
+beginning of the reminder.
 
 ### Other Commands
 
