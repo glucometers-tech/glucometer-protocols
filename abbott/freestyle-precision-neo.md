@@ -112,3 +112,27 @@ dinner-short-acting = "4"
 
   The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value
   by 18 to get a proper Ketone value in mmol/L.
+
+### Other Commands
+
+The following commands, used by other meters using the shared HID protocol, are
+identified as supported by the device:
+
+#### `$gunits?`
+
+Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+
+Unknown response. Best guess this _may_ be "Glucose Units".
+
+    gunits-cmd = "$gunits?"
+    gunits-msg = "1" CRLF  ; on a mg/dL device
+
+The theory of this being the unit of measure is supported by the `$uom?` command
+reporting `0` for a mmol/L FreeStyle Libre reader.
+
+#### `$marketlev?`
+
+Originally identified on [FreeStyle Libre](freestyle-libre).
+
+    marketlev-cmd = "$marketlev?"
+    marketlev-msg = "1,0" CRLF
