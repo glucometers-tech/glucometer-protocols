@@ -41,3 +41,13 @@ place the protocol specifications within those directories. Use
 Markdown format to describe the protocol, try to use
 [ABNF](https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_Form)
 for the description of the protocol.
+
+## Documentation Provided by Manufacturers
+
+Very few manufacturers provide their protocol specifications. For those who do,
+please refer to their own repositories, rather than to this collection.
+
+ * Ascensia Diabetes Care develops the Contour line of glucometers, originated
+   as Bayer. They publish their [Computer Interface
+   Specification](http://protocols.ascensia.com/Programming-Guide.aspx) under a
+   relatively straightforward license.
