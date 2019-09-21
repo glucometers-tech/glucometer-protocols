@@ -34,6 +34,41 @@ contribute new protocols.
 * [Ascensia Diabetes Care](http://protocols.ascensia.com/Programming-Guide.aspx)
   (_Contour_ brand, formerly under the Bayer name.)
 
+## Standards and Common Protocols
+
+### CLSI
+
+[CLSI](https://clsi.org/) (Clinical and Laboratory Standards Institute) develop
+and publish protocols that are used by some meter manufacturers.
+
+The two main relevant documents are:
+
+ * [Specification for Low-Level Protocol to Transfer Messages Between Clinical
+   Laboratory Instruments and Computer Systems, 2nd
+   Edition](https://clsi.org/standards/products/automation-and-informatics/documents/lis01/)
+   (LIS01-A2)
+ * [Specification for Transferring Information Between Clinical Laboratory
+   Instruments and Information Systems, 2nd
+   Edition](https://clsi.org/standards/products/automation-and-informatics/documents/lis02/)
+   (LIS02-A2)
+
+These are proprietary, not freely available standards.
+
+### Bluetooth GATT
+
+Many Bluetooth glucometers implement [GATT
+Services](https://www.bluetooth.com/specifications/gatt/services/), which then
+reference the following specifications:
+
+ * [Glucose Profile (GLP)
+   1.0](https://www.bluetooth.org/DocMan/handlers/DownloadDoc.ashx?doc_id=248025).
+ * [Glucose Service (GLS)
+   1.0](https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=248026).
+ * [Continuous Glucose Monitoring Profile (CGMP)
+   1.0.1](https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=310501)
+ * [Continuous Glucose Monitoring Service (CGMS)
+   1.0.1](https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=310502)
+
 ## License
 
 This work is licensed under a [Creative Commons Attribution 4.0 International
