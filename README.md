@@ -1,22 +1,13 @@
-# Glucometer protocols specifications
+# Glucometers Protocol Specifications
 
-This repository contains a description of the USB or Serial protocols,
-as well as further information known, about various glucometers,
-whether they are on the market or not.
+This website is intended to provide description of protocols (or "Computer
+Interface Specifications") for various glucometers.
 
-## License
+As few manufacturers publish documentation of their meters' protocols, the
+majority of the content is produced by reverse engineering the data transmission
+between meters and PCs, and documenting it.
 
-This work is licensed under a [Creative Commons Attribution 4.0 International
-License](https://creativecommons.org/licenses/by/4.0/).
-
-Use the information you'll find in this page for whatever purpose you
-see fit, but there is no warranty about the accuracy of this
-information.
-
-Most of the information has been reverse engineerd by individual
-contributors.
-
-## Content
+## Reversed Engineered Protocols
 
 * Abbott Laboratories
   - [FreeStyle Lite](abbott/freestyle-lite.md)
@@ -34,20 +25,22 @@ contributors.
 * TaiDoc
   - [TD-4277](taidoc/td4277.md)
 
-## Structure
+See [reverse engineering contribution
+suggestions](contributing/reverse-engineered.md) for details on how to
+contribute new protocols.
 
-Please create a top-level directory for each of the manufacturers, and
-place the protocol specifications within those directories. Use
-Markdown format to describe the protocol, try to use
-[ABNF](https://en.wikipedia.org/wiki/Augmented_Backus%E2%80%93Naur_Form)
-for the description of the protocol.
+## Manufacturer Supplied Documentation
 
-## Documentation Provided by Manufacturers
+* [Ascensia Diabetes Care](http://protocols.ascensia.com/Programming-Guide.aspx)
+  (_Contour_ brand, formerly under the Bayer name.)
 
-Very few manufacturers provide their protocol specifications. For those who do,
-please refer to their own repositories, rather than to this collection.
+## License
 
- * Ascensia Diabetes Care develops the Contour line of glucometers, originated
-   as Bayer. They publish their [Computer Interface
-   Specification](http://protocols.ascensia.com/Programming-Guide.aspx) under a
-   relatively straightforward license.
+This work is licensed under a [Creative Commons Attribution 4.0 International
+License](https://creativecommons.org/licenses/by/4.0/).
+
+Use the information you'll find in this page for whatever purpose you see fit,
+but there is no warranty about the accuracy of this information.
+
+Most of the information has been reverse engineerd by individual contributors,
+see the individual page for details.
