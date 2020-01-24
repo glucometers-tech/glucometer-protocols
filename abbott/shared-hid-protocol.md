@@ -31,25 +31,31 @@ multiple inbound reports.
     message-type = OCTET  ; this will more properly defined later.
     message-length = %x00-3E
 
-The `message-type` is not fully understood, and its values differ
-between different devices, and are thus not part of this document.
+The `message-type` is not fully understood, and its valid values differ
+between different devices, so please reference the specific device document.
 
 The `message-length` represent the number of significant bytes in the message
 *excluding type and length*.
 
-## Initialization Sequence
+Some devices (notably the Libre 2 reader) encrypt the message following
+`message-type`, and as such don't have a valid `message-length` value.
 
-The devices following this protocol share the same initialization sequence,
-sending four messages with no payload. The content of the replies could be used
-to validate whether the device is the one expected, but their meaning is not
-fully understood.
+## Pre-Initialization Commands
 
-    init-command = %x04 %x00
-    init-command-reply = %x34 %x01 OCTET
+Abbott's original software sends a number of pre-initialization commands to
+identify the model and software version of the device, and choose the
+appropriate protocol implementation.
+
+### `0x04`
+
+    x04-command = %x04 %x00
+    x04-command-reply = %x34 %x01 OCTET
 
 The octet returned by this command appears not to be constant per device,
 according to Xavier's notes and experimentation. It is not constant across
 devices. No meaning is known for this.
+
+### QUERY SERIAL (`0x05`)
 
     init-query-serial = %x05 %x00
     init-query-serial-reply = %x06 %x0e
@@ -62,17 +68,23 @@ devices have a longer, and non-compatible serial number format. It is possible
 that the Abbott software can determine the driver to use based on this serial
 number.
 
+### QUERY SWVER (`0x15`)
+
     init-query-swver = %x15 %x00
     init-query-swver-reply = %x35 message-length software-version %x00
     software-version = VCHAR *( VCHAR / SP )
 
-The software version definition is effectively free-form. Newer models appear to
-include a date.
+The software version definition is effectively free-form. Some newer models
+appear to include a date.
+
+### INIT COMPLETE (`0x01`)
 
     init-complete = %x01 %x00
     init-complete-reply = %x71 %x01 %x01
 
-This is the same exact request/reply pair in all the currently observed devices.
+This is the same exact request/reply pair in all the currently observed
+devices. Most devices will respond to text commands following this
+initialization.
 
 ## Synchronization packets
 
