@@ -456,3 +456,8 @@ Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
 
     tagsenbl-cmd = "$tagsenbl?"
     tagsenbl-msg = CRLF
+
+#### `$patch?`
+
+Possibly related to the recent firmware update, this appears to be a
+multi-record answer, as it reports `Log Empty` on the tested device.
