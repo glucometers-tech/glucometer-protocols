@@ -13,8 +13,10 @@ Reverse engineered by Pascal Fribi, editing and expansion by Diego Elio Pettenò
 ## Protocol
 
 This device uses the [shared HID protocol](shared-hid-protocol.md) used by other
-meters in the FreeStyle family. Most of the text command share the same message
-type `0x60`, except where otherwise noted.
+meters in the FreeStyle family. Text commands are sent by the original software
+as message type `0x21`, with responses as `0x60`, but the device appears to
+accept the commands as type `0x60` as well (compatible with other FreeStyle
+devices).
 
 ## Commands
 
