@@ -40,11 +40,21 @@ The `message-length` represent the number of significant bytes in the message
 Some devices (notably the Libre 2 reader) encrypt the message following
 `message-type`, and as such don't have a valid `message-length` value.
 
-## Pre-Initialization Commands
+## Binary Messages
 
 Abbott's original software sends a number of pre-initialization commands to
 identify the model and software version of the device, and choose the
-appropriate protocol implementation.
+appropriate protocol implementation. These are all binary (i.e. non-text)
+commands. The names are arbitrary to provide a mnemonic reference.
+
+### INIT (`0x01`)
+
+    init = %x01 %x00
+    init-reply = %x71 %x01 %x01
+
+This is the same exact request/reply pair in all the currently observed
+devices. Most devices will respond to text commands following this
+initialization.
 
 ### `0x04`
 
@@ -77,14 +87,14 @@ number.
 The software version definition is effectively free-form. Some newer models
 appear to include a date.
 
-### INIT COMPLETE (`0x01`)
+## Error Conditions
 
-    init-complete = %x01 %x00
-    init-complete-reply = %x71 %x01 %x01
+### UNKNOWN COMMAND
 
-This is the same exact request/reply pair in all the currently observed
-devices. Most devices will respond to text commands following this
-initialization.
+Whenever an invalid (unknown) message type is sent to a device, it will respond
+with the following message:
+
+    error-reply = %x30 %x01 %x85
 
 ## Synchronization packets
 
