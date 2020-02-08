@@ -25,13 +25,7 @@ protocol. In particular, the following commands are not supported:
 
   * `$serlnum?` — replaced by `$sn?`.
 
-The following text commands are instead added:
-
-  * `$dbrnum?`
-  * `$history?`
-  * `$arresult?`
-  * `$swreset`
-  * `$resetpatient`
+A number of new text commands are added instead.
 
 ### `$dbrnum?`
 
@@ -461,5 +455,6 @@ Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
 
 #### `$patch?`
 
-Possibly related to the recent firmware update, this appears to be a
-multi-record answer, as it reports `Log Empty` on the tested device.
+Return information about the sensors (patches) that the device initialized.
+
+This is a multi-record result, but its format is not currently understood.
