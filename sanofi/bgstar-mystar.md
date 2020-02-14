@@ -75,12 +75,12 @@ hour is on 1 or 2 digits
 minutes is on 1 or 2 digits  
 seconds is on 1 or 2 digits  
   
-## Get number of measures  
+## Get number of results  
 **request:** get glucount\r  
 **response:** 200 glucount 1 to 4 digits  
 Example: 200 glucount 935  
   
-## Get one measure by position (last is zero)  
+## Get one result by position (last is zero)  
 **request:** get glurec number\r => number is 1 to 4 digits  
 **response:** 200 glurec unknown unknown value type date_and_time  
 Example: 200 glurec 0 0 113 1 2020 2 13 8 34 18  
