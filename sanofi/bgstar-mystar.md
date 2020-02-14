@@ -38,6 +38,7 @@ The serial port should be configured as such:
 ### Messages and commands
 
 All commands (requests) must end with a carriage return.
+In all results, leding zeros are removed.
 
 ## Hello command
 
