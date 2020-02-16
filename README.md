@@ -24,6 +24,8 @@ between meters and PCs, and documenting it.
   - [SD Codefree](sd-biosensor/codefree.md)
 * TaiDoc
   - [TD-4277](taidoc/td4277.md)
+* Sanofi
+  - [BGStar and Mystar Extra](sanofi/bgstar-mystar.md)
 
 See [reverse engineering contribution
 suggestions](contributing/reverse-engineered.md) for details on how to
