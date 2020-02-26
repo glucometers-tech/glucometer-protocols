@@ -1,0 +1,11 @@
+title: Glucometer Protocols
+
+chapters:
+  - index.md
+
+backend_config:
+  mkdocs:
+    use_headings: true
+    mkdocs.yml:
+      use_directory_urls: false
+      plugins: []
