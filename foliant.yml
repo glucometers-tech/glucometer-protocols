@@ -5,7 +5,9 @@ chapters:
 
 backend_config:
   mkdocs:
+    slug: glucometer-protocols
     use_headings: true
     mkdocs.yml:
       use_directory_urls: false
       plugins: []
+      repo_url: https://github.com/glucometers-tech/glucometer-protocols
