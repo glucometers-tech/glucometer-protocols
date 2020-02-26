@@ -60,16 +60,17 @@ the shared protocol documentation.
   12. `unknown = "0"`
   13. `unknown = "0" / "1"`
 
-      This value appears to only be 1 for the first reading of the sensor (with
-      sensor runtime reporting 15 minutes).
+    This value appears to only be 1 for the first reading of the sensor (with
+    sensor runtime reporting 15 minutes).
+
   14. `value = 1*DIGIT`
   15. `sensor-runtime-minutes = 1*DIGIT`
   16. `error-bitfield = 1*5DIGIT`
 
-      This field needs to be interpreted as a bitfield (in decimal
-      representation). Flag 0x8000 indicates an error (invalid reading). If the
-      error flag is set, the remaining bits refer to more error details that are
-      not clear.
+    This field needs to be interpreted as a bitfield (in decimal
+    representation). Flag 0x8000 indicates an error (invalid reading). If the
+    error flag is set, the remaining bits refer to more error details that are
+    not clear.
 
 ### `$arresult?`
 
@@ -97,34 +98,35 @@ change event.
   9. `unknown = "1"`
   10. Identifies the type of reading in the record
 
-      ```
-      reading-type = blood-glucose / blood-ketone / sensor-glucose
-      blood-glucose = "0"
-      blood-ketone = "1"
-      sensor-glucose = "2"
-      ```
+        reading-type = blood-glucose / blood-ketone / sensor-glucose
+        blood-glucose = "0"
+        blood-ketone = "1"
+        sensor-glucose = "2"
+
   11. `unknown = "0"`
   12. `unknown = "0" / "1"`
 
-      This appears to be 1 when either an error is present, or when the read
-      value is LO.
+    This appears to be 1 when either an error is present, or when the read
+    value is LO.
+
   13. `value = 1*DIGIT`
 
-      When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
-      represent the blood sugar reading in mg/dL.
+    When `reading-type` is either `blood-glucose` or `sensor-glucose`, this
+    represent the blood sugar reading in mg/dL.
 
-      When `reading-type` is `blood-ketone`, this represent the β-ketone reading
-      in mmol/l after apply `value`/18. It seems that the value is reported in
-      mg/dL and the conversion is using the wrong molar mass system for
-      conversion.  But based on actual measurements the results are correct this
-      way.
+    When `reading-type` is `blood-ketone`, this represent the β-ketone reading
+    in mmol/l after apply `value`/18. It seems that the value is reported in
+    mg/dL and the conversion is using the wrong molar mass system for
+    conversion.  But based on actual measurements the results are correct this
+    way.
+
   14. `unknown = "0" / "1"`
 
-      This appears to be 0 for values read from a blood strip, and 1 for values
-      read from sensor. Appears redundant with the `reading-type` field.
+    This appears to be 0 for values read from a blood strip, and 1 for values
+    read from sensor. Appears redundant with the `reading-type` field.
+
   15. Corresponds to the arrow indicator in the UI.
 
-      ```
       direction-indicator = none / down-fast / down / steady / up / up-fast
       none = "0"
       down-fast = "1"
@@ -132,18 +134,21 @@ change event.
       steady = "3"
       up = "4"
       up-fast = "5"
-      ```
+
   16. `sports-flag = "0" / "1"`
   17. `medication-flag = "0" / "1"`
   18. `rapid-acting-insulin-flag = "0" / "1"`
 
-      See field 44 for value†.
+    See field 44 for value†.
+
   19. `long-acting-insulin-flag = "0" / "1"`
 
-      See field 24 for value.
+    See field 24 for value.
+
   20. `custom-comments-bitfield = 1*DIGIT`
 
-      Custom comments 1-6 flags. To be interpreted as a bitfield, LSB first.
+    Custom comments 1-6 flags. To be interpreted as a bitfield, LSB first.
+
   21. `unknown = "0"`
   22. `unknown = "0"`
   23. `unknown = "0" / "1" / "2" / "3" / "4" / "5"`
@@ -151,17 +156,19 @@ change event.
   25. `unknown = "0" / "1"`
   26. `food-flag = "0" / "1"`
 
-      See field 27 for value.
+    See field 27 for value.
+
   27. `food-carbs-grams = 1*DIGIT`
   28. `unknown = "0"`
   29. `error-bitfield = 1*5DIGIT`
 
-      This field needs to be interpreted as a bitfield (in decimal
-      representation). Flag 0x8000 indicates an error (invalid reading). If the
-      error flag is set, the remaining bits refer to more error details that are
-      not clear.
+    This field needs to be interpreted as a bitfield (in decimal
+    representation). Flag 0x8000 indicates an error (invalid reading). If the
+    error flag is set, the remaining bits refer to more error details that are
+    not clear.
 
-      In the Event View on the device, these correspond to Err3 errors.
+    In the Event View on the device, these correspond to Err3 errors.
+
   30. `custom-comment-1 = DQUOTE *VCHAR DQUOTE` ‡
   31. `custom-comment-2 = DQUOTE *VCHAR DQUOTE` ‡
   32. `custom-comment-3 = DQUOTE *VCHAR DQUOTE` ‡

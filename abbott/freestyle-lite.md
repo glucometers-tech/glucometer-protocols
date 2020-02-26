@@ -1,7 +1,7 @@
 # FreeStyle Freedom Lite / Lite / Mini
 
 Reverse Engineered by [Alexander
-Schrijver](http://www.flupzor.nl/protocol.html)) (@flupzor).
+Schrijver](http://www.flupzor.nl/protocol.html) (@flupzor).
 
 ## Important device notes
 

@@ -10,22 +10,22 @@ between meters and PCs, and documenting it.
 ## Reversed Engineered Protocols
 
 * Abbott Laboratories
-  - [FreeStyle Lite](abbott/freestyle-lite.md)
-  - [FreeStyle Optium](abbott/freestyle-optium.md)
-  - [Shared HID protocol](abbott/shared-hid-protocol.md)
-  - [FreeStyle InsuLinx](abbott/freestyle-insulinx.md)
-  - [FreeStyle Libre](abbott/freestyle-libre.md)
-  - [FreeStyle Precision Neo](abbott/freestyle-precision-neo.md)
+    - [FreeStyle Lite](abbott/freestyle-lite.md)
+    - [FreeStyle Optium](abbott/freestyle-optium.md)
+    - [Shared HID protocol](abbott/shared-hid-protocol.md)
+    - [FreeStyle InsuLinx](abbott/freestyle-insulinx.md)
+    - [FreeStyle Libre](abbott/freestyle-libre.md)
+    - [FreeStyle Precision Neo](abbott/freestyle-precision-neo.md)
 * LifeScan
-  - [Shared Binary Protocol](lifescan/shared-binary-protocol.md)
-  - [OneTouch Verio IQ](lifescan/onetouch-verio-iq.md)
-  - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
-* SD Biosensor
-  - [SD Codefree](sd-biosensor/codefree.md)
-* TaiDoc
-  - [TD-4277](taidoc/td4277.md)
+    - [Shared Binary Protocol](lifescan/shared-binary-protocol.md)
+    - [OneTouch Verio IQ](lifescan/onetouch-verio-iq.md)
+    - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
 * Sanofi
-  - [BGStar and Mystar Extra](sanofi/bgstar-mystar.md)
+    - [BGStar and Mystar Extra](sanofi/bgstar-mystar.md)
+* SD Biosensor
+    - [SD Codefree](sd-biosensor/codefree.md)
+* TaiDoc
+    - [TD-4277](taidoc/td4277.md)
 
 See [reverse engineering contribution
 suggestions](contributing/reverse-engineered.md) for details on how to

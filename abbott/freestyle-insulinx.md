@@ -39,7 +39,8 @@ glucose reading.
   13. `unknown`
   14. `value = 1*DIGIT`
 
-      Unknown (but likely) whether this includes HI / LO constants.
+    Unknown (but likely) whether this includes HI / LO constants.
+
   15. `unknown`
   16. `unknown`
 

@@ -86,16 +86,16 @@ The `HI` literal signifies a reading that was outside the range of the device
   12. `unknown`
   13. `unknown`
 
-```
-insulin-type = morning-long-acting / breakfast-short-acting /
-               lunch-short-acting / evening-long-acting /
-               dinner-short-acting
-morning-long-acting = "0"
-breakfast-short-acting = "1"
-lunch-short-acting = "2"
-evening-long-acting = "3"
-dinner-short-acting = "4"
-```
+The insulin type is defined as follows:
+
+    insulin-type = morning-long-acting / breakfast-short-acting /
+                   lunch-short-acting / evening-long-acting /
+                   dinner-short-acting
+    morning-long-acting = "0"
+    breakfast-short-acting = "1"
+    lunch-short-acting = "2"
+    evening-long-acting = "3"
+    dinner-short-acting = "4"
 
 #### β-ketones record fields
 
@@ -110,8 +110,8 @@ dinner-short-acting = "4"
   9. `value = 1*DIGIT`
   10. `unknown`
 
-  The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value
-  by 18 to get a proper Ketone value in mmol/L.
+The Ketone value is in mg/dL not in mmol/L as it should be. Divide the value by
+18 to get a proper Ketone value in mmol/L.
 
 ### Other Commands
 
