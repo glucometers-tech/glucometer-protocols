@@ -11,3 +11,4 @@ backend_config:
       use_directory_urls: false
       plugins: []
       repo_url: https://github.com/glucometers-tech/glucometer-protocols
+      edit_uri: 'edit/master/src/'
