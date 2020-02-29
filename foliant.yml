@@ -12,3 +12,8 @@ backend_config:
       plugins: []
       repo_url: https://github.com/glucometers-tech/glucometer-protocols
       edit_uri: 'edit/master/src/'
+
+preprocessors:
+  - blockdiag:
+      params:
+        format: svg

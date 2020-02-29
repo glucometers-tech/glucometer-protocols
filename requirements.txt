@@ -1,2 +1,3 @@
 # List the required Foliant backends and extensions, as well as other Python packages, e.g. MkDocs theme:
 foliantcontrib.mkdocs
+foliantcontrib.blockdiag
