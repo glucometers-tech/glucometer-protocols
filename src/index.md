@@ -15,6 +15,7 @@ between meters and PCs, and documenting it.
     - [Shared HID protocol](abbott/shared-hid-protocol.md)
     - [FreeStyle InsuLinx](abbott/freestyle-insulinx.md)
     - [FreeStyle Libre](abbott/freestyle-libre.md)
+    - [FreeStyle Libre 2](abbott/freestyle-libre-2.md)
     - [FreeStyle Precision Neo](abbott/freestyle-precision-neo.md)
 * LifeScan
     - [Shared Binary Protocol](lifescan/shared-binary-protocol.md)
