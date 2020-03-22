@@ -464,4 +464,26 @@ Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
 
 Return information about the sensors (patches) that the device initialized.
 
-This is a multi-record result, but its format is not currently understood.
+The returned message is in a similar text format to "multi records" responses,
+but with a different structure.
+
+    patch-response = empty-log / patch-response-detailed
+    empty-log = "Log Empty" CRLF
+
+    csv-line = *( value "," ) value
+    value = 1*DIGIT
+    checksum = 8HEXDIGIT
+
+    patch-response-detailed = csv-line CRLF
+                              "PID: " csv-line CRLF
+                              "SW Versions: " csv-line CRLF
+                              csv-line CRLF
+                              "Event Log: " csv-line CRLF
+                              csv-line CRLF
+                              "AFE Cal Data: " csv-line CRLF
+                              "Unused: " csv-line
+                              "1," checksum
+
+The `<checksum>` field is calculated in the same way as multiple records
+commands: by summing up the ASCII value of each of the bytes forming the
+response set, up to and including the final newline before `1,`.
