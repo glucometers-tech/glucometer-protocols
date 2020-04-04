@@ -3,6 +3,7 @@ pull_request_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - "status-success=netlify/glucometer-protocols/deploy-preview"
+      - "status-success=Travis CI - Pull Request"
     actions:
       merge:
         method: rebase
@@ -10,6 +11,7 @@ pull_request_rules:
     conditions:
       - "author=Flameeyes"
       - "status-success=netlify/glucometer-protocols/deploy-preview"
+      - "status-success=Travis CI - Pull Request"
     actions:
       merge:
         method: rebase
