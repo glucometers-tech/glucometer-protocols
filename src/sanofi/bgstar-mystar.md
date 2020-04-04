@@ -38,100 +38,100 @@ The serial port should be configured as such:
 ### Messages and commands
 
 All commands (requests) must end with a carriage return.
-In all results, leding zeros are removed.
+
+In all results, leading zeros are removed.
+
+Message status is reported with HTTP-style status codes.
+
+    continue = "100"
+    ok = "200"
 
 ## Hello command
 
-First command to send is hello\r
-Response is 200 hello name => name = 4( ALPHA ) "-" 2( ALPHA )
-Example: 200 hello JAZZESC-EN
+    first-command = "hello" CR
+
+    first-response = ok SP "hello" SP name
+    name = 4ALPHA "-" 2ALPHA
 
 ## Get Serial command
 
-**request:** get serial\r
-**response:** 200 serial 14( ALPHA / DIGIT )
-Example: 200 serial JBAA211G300702
+    get-serial-cmd = "get serial" CR
+    get-serial-response = ok SP "serial" SP serial
+    serial = 14( ALPHA / DIGIT )
 
-## Get datetime
-**request:** get datetime\r
-**response:** 200 datetime year month day hour minutes seconds
-Example: 200 datetime 2020 2 14 21 30 2
+## Get date and time
 
-year is on 4 digits
-month is on 1 or 2 digits
-day is on 1 or 2 digits
-hour is on 1 or 2 digits
-minutes is on 1 or 2 digits
-seconds is on 1 or 2 digits
+    get-datetime-cmd = "get datetime" CR
+    get-datetime-response = ok SP datetime
 
-## Set datetime
-**request:** set datetime\r
-**response:** 200 datetime year month day hour minutes seconds
-Example: 200 datetime 2020 2 14 21 30 2
+    datetime = year SP month SP day SP
+               hour SP minutes SP seconds
+    year = 4DIGIT
+    day = 1*2DIGIT
+    hour = 1*2DIGIT
+    minute = 1*2DIGIT
+    second = 1*2DIGIT
 
-year is on 4 digits
-month is on 1 or 2 digits
-day is on 1 or 2 digits
-hour is on 1 or 2 digits
-minutes is on 1 or 2 digits
-seconds is on 1 or 2 digits
+## Set date and time
+
+TODO: confirm the correct command.
 
 ## Get number of results
-**request:** get glucount\r
-**response:** 200 glucount 1 to 4 digits
-Example: 200 glucount 935
 
-## Get one result by position (last is zero)
-**request:** get glurec number\r => number is 1 to 4 digits
-**response:** 200 glurec unknown unknown value type date_and_time
-Example: 200 glurec 0 0 113 1 2020 2 13 8 34 18
+    get-glucount-cmd = "get glucount" CR
+    get-glucount-response = ok SP "glucount" 1*4DIGIT
 
-Type:
+## Get single result
 
-1:Before Breakfast
-2:After Breakfast
-3:Before Lunch
-4:After Lunch
-5:Before Dinner
-6:After Dinner
-0:Other
+Result ID is in reverse time order, 0 is most recent.
 
-date_and_time: is same format as in get datetime
+    get-glurec-cmd = "get glurec" SP glurec-id CR
+    glurec-id = 1*4DIGIT
 
-value: 1 to 3 digits
+    get-glurec-response = ok SP "glurec" SP record
+    record = 1DIGIT 1DIGIT value flag-meal datetime
+    value = 1*3DIGIT
+
+    flag-meal = no-meal /
+                before-breakfast / after-breakfast /
+                before-lunch / after-lunch /
+                before-dinner / after-dinner
+    no-meal = "0"
+    before-breakfast = "1"
+    after-breakfast = "2"
+    before-lunch = "3"
+    after-lunch = "4"
+    before-dinner = "5"
+    after-dinner = "6"
 
 If there was an error when the measure was taken, response begins with E.
-Unfortunately, I can't reproduce this to have the full error message.
-But it is sure that fifth field begins with an E (fields are separated by spaces)
+Unfortunately, I can't reproduce this to have the full error message.  But it is
+sure that fifth field begins with an E (fields are separated by spaces)
 
 In the meter I have used, value is in mg/dL
-
-##  Get System Info:
-
-I don't have detail. It's not necessary.
-Here's an example:
-
-**request:** get sysinfo all\r
-**response:**
-100 model JAZZESC-EN
-100 product BGStar
-100 comm F
-100 commmaster F
-100 co A
-100 firmware 4.8.11.b1.34
-100 calcode 840010042A
-100 compiler MSP430 IAR C/C++ version 5.10.4
-100 compiletime Nov 19 2010 16:25:43
-100 deviceid 0xf449
-100 cpu MSP430F449
-200 sysinfo all
-
-## Get Glucose Units:
-
-**request:** get gluunit\r
-**response:** 200 gluunit mg/dL
 
 The maximum number of results is 1865.
 After that oldest result is replaced.
 
 To be checked: after that which number is used for a new result?
+
+##  Get System Info
+
+TODO: confirm whether lines end with CR or CRLF.
+
+    get-sysinfo-cmd = "get sysinfo all" CR
+    get-sysinfo-response = 1*sysinfo-line
+                           ok SP "sysinfo all"
+    sysinfo-line = continue SP sysinfo-key SP sysinfo-value CR
+    sysinfo-key = "model" / "product" / "comm" / "commaster" /
+                  "co" / "firmware" / "calcode" / "compiler" /
+                  "compiletime" / "deviceid" / "cpu" / 1*ALPHA
+    sysinfo-value = 1*VCHAR
+
+## Get Glucose Units:
+
+    get-glucose-unit-cmd = "get gluunit" CR
+    get-glucose-unit-response = ok SP "gluunit" SP unit
+    unit = "mg/dL" / 1*VCHAR
+
+TODO: confirm the unit for mmol/L devices.
