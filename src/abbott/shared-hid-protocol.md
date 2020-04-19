@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Abbott Shared HID protocol
 
 Multiple Abbott devices of the FreeStyle family share a common communication

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # FreeStyle Libre
 
 Reverse engineered by Pascal Fribi, editing and expansion by Diego Elio Pettenò.

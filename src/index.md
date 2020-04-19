@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Glucometers Protocol Specifications
 
 This website is intended to provide description of protocols (or "Computer

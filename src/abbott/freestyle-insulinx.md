@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # FreeStyle InsuLinx
 
 Reverse engineered by [Xavier Claessens](mailto:xclaesse@gmail.com).
