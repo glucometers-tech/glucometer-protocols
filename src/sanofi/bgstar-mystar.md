@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Sanofi BGStar and Mystar Extra
 
 Reverse Engineered by Noury (@nbenm)

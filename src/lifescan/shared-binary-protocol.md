@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # LifeScan Shared Binary Protocol
 
 Multiple LifeScan devices of the OneTouch family share a common packet framing

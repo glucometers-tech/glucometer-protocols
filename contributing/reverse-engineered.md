@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Contributing Reverse Engineered Protocols
 
 Please create a top-level directory for each of the manufacturers, and place the

@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # OneTouch Verio 2015
 
 Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com).

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+#
+# SPDX-License-Identifier: MIT
+
 # List the required Foliant backends and extensions, as well as other Python packages, e.g. MkDocs theme:
 foliantcontrib.mkdocs
 foliantcontrib.blockdiag
