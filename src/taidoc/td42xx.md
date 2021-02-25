@@ -4,14 +4,17 @@ SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
 SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
-# TaiDoc TD-4277
+# TaiDoc TD-42xx
 
 Reverse engineered by [Diego Elio Pettenò](mailto:flameeyes@flameeyes.com). With
 thanks to Gianni Ceccarelli for the time fields structure.
 
-This device is also known as:
+The protocol is compatible with both TD-4277 and TD-4235B devices at least.
+
+These devices are marketed as:
 
   * GlucoRx Nexus
+  * GlucoRx NexusQ
   * Menarini GlucoMen Nexus
   * Aktivmed GlucoCheck XL
 
@@ -25,6 +28,7 @@ adapter, based on the Silicon Labs cp2110 interface.
 | Device         | Vendor ID | Product ID |
 | ---            | ---       | ---        |
 | GlucoRx Nexus  | 10c4      | ea80       |
+| GlucoRx NexusQ | 10c4      | ea80       |
 
 ### Serial port configuration
 
@@ -86,7 +90,7 @@ devices sharing a similar protocol), you can send command `0x24`.
     model-request = STX %x24 empty-message direction-out checksum
     model-response = STX %x24 model OCTET OCTET direction-in checksum
 
-    model = %x77 %x42  ; 16-bit little-endian value
+    model = OCTET %x42  ; 16-bit little-endian value
 
 The model will be reported as a 16-bit little-endian BCD value.
 
@@ -141,9 +145,14 @@ are 0-indexed, with the most recent result first.
 To retrieve the record count, send command `0x2B`.
 
     recordcount-request = STX %x2B empty-message direction-out checksum
-    recordcount-response STX %x2B record-count %x06 %x00 direction-in checksum
+    recordcount-response STX %x2B record-count unknown-value direction-in checksum
 
     record-count = 2OCTET  ; 16-bit little-endian value
+    unknown-value = 2OCTET  ; likely 16-bit little-endian value
+
+The `unknown-value` is unknown but appears to be bound to the record-count. For
+a new meter with a record count of 0 (or a cleared meter), the unknown value is
+always `0xFFFF`.
 
 #### Record Timestamp
 
@@ -159,9 +168,10 @@ To retrieve each record value, send command `0x26`.
 
     record-value-request = STX %x26 record-id %x00 %x00 direction-out checksum
     record-value-response = STX %x26
-                            glucose-value %x06 meal-flag direction-in checksum
+                            glucose-value unknown meal-flag direction-in checksum
 
     glucose-value = 2OCTET  ; 16-bit little-endian value
+    unknown = OCTET
     meal-flag = meal-none / meal-before / meal-after
     meal-none = %x00
     meal-before = %x40
