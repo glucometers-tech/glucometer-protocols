@@ -32,7 +32,7 @@ between meters and PCs, and documenting it.
 * SD Biosensor
     - [SD Codefree](sd-biosensor/codefree.md)
 * TaiDoc
-    - [TD-4277](taidoc/td4277.md)
+    - [TD-42xx](taidoc/td42xx.md)
 
 See [reverse engineering contribution
 suggestions](contributing/reverse-engineered.md) for details on how to
