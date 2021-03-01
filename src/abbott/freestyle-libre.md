@@ -24,6 +24,11 @@ as message type `0x21`, with responses as `0x60`, but the device appears to
 accept the commands as type `0x60` as well (compatible with other FreeStyle
 devices).
 
+### Strings Handling
+
+The official software has known UTF-8 handling bugs, but the device itself
+appears to display strings correctly if encoded in UTF-8.
+
 ## Commands
 
 The Libre supports a distinct set of commands from those described in the shared
