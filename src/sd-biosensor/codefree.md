@@ -16,11 +16,11 @@ adapter, based on Silicon Laboratories CP210x chipset.
 It appears to be a fairly standard USB-to-TRS serial adapter, though the
 connector is a subminiature (2.5mm connector):
 
-| Connector | Meaning |
-| ---       | ---     |
-| Tip       | RxD     |
-| Ring      | TxD     |
-| Sleeve    | GND     |
+| Connector | Meaning        |
+| ---       | ---            |
+| Tip       | Device-to-Host |
+| Ring      | Host-to-Device |
+| Sleeve    | GND            |
 
 ### USB IDs
 
@@ -30,7 +30,7 @@ connector is a subminiature (2.5mm connector):
 
 ## Protocol
 
-The communiation happens over a serial binary protocol. The device initiates the
+The communication happens over a serial binary protocol. The device initiates the
 connection once turned on, and the computer needs to respond to the opening
 challenge and follow up packets from the device with either commands or
 acknowledgments.
