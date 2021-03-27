@@ -27,6 +27,8 @@ between meters and PCs, and documenting it.
     - [Shared Binary Protocol](lifescan/shared-binary-protocol.md)
     - [OneTouch Verio IQ](lifescan/onetouch-verio-iq.md)
     - [OneTouch Verio (2015)](lifescan/onetouch-verio-2015.md)
+* Menarini
+    - [GlucoMen areo](menarini/glucomen-areo.md)
 * Sanofi
     - [BGStar and Mystar Extra](sanofi/bgstar-mystar.md)
 * SD Biosensor
