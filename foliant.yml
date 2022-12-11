@@ -16,6 +16,9 @@ backend_config:
       plugins: []
       repo_url: https://github.com/glucometers-tech/glucometer-protocols
       edit_uri: 'edit/master/src/'
+      theme:
+        name: mkdocs
+        custom_dir: !path ./mkdocs_theme/
 
 preprocessors:
   - blockdiag:
