@@ -4,12 +4,12 @@
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
 -   repo: https://github.com/fsfe/reuse-tool
-    rev: v0.12.1
+    rev: v1.1.0
     hooks:
     - id: reuse
