@@ -6,3 +6,4 @@
 /*.mkdocs
 /.diagramscache
 *~
+venv/
