@@ -333,10 +333,10 @@ marketing regions.
 
 #### `$uom?`
 
-Unknown response. Best guess this _may_ be "Unit Of Measure".
+This is _most likely_ for "Unit Of Measurement".
 
     uom-cmd = "$uom?"
-    uom-msg = "0" CRLF  ; on a mmol/l device
+    uom-msg = "0" CRLF  ; on a mmol/l device, 1 on mg/dl
 
 The theory of this being the unit of measure is supported by the `$gunits?`
 command reporting `1` for a mg/dL FreeStyle Precision Neo reader.
