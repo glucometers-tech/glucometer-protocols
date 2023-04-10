@@ -186,16 +186,18 @@ change event.
   33. `custom-comment-4 = DQUOTE *VCHAR DQUOTE` ‡
   34. `custom-comment-5 = DQUOTE *VCHAR DQUOTE` ‡
   35. `custom-comment-6 = DQUOTE *VCHAR DQUOTE` ‡
-  36. `unknown` †
-  37. `unknown` †
-  38. `unknown` †
-  39. `unknown` †
-  40. `unknown` †
-  41. `unknown` †
-  42. `unknown` †
-  43. `unknown` †
+  36. `unknown = "7"` †
+  37. `month = 1*2DIGIT` * †
+  38. `day = 1*2DIGIT` * †
+  39. `year = 1*2DIGIT` * †
+  40. `hour = 1*2DIGIT` * †
+  41. `minute = 1*2DIGIT` * †
+  42. `second = 1*2DIGIT` * †
+  43. `unknown = "1"` * †
   44. Value of rapid acting insulin in 0.5 IE. If you want proper IE, divide by
       2.
+
+\* These values are identical to values 3-9, regardless of what time the notes were added to the record. Which seems to make them entirely redundant.
 
 † The number of columns in a record can be different. If a rapid acting insulin
 value has been set, then it is > 44, otherwise the record has only entries up to
