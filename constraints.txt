@@ -2,4 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+# See https://github.com/foliant-docs/foliant/issues/71
 cython < 3
+
+# See https://github.com/blockdiag/blockdiag/issues/176
+Pillow < 10
