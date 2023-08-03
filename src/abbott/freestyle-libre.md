@@ -350,12 +350,48 @@ Unknown respoonse.
     marketlev-cmd = "$marketlev?"
     marketlev-msg = "1,0,0,0" CRLF
 
-#### `$lang?`
+#### Language settings
 
-Originally identified on [FreeStyle Insulinx](freestyle-insulinx).
+The command `$lang?` reports the currently configured language.
 
-    lang-cmd = "$lang?"
-    lang-msg = "6" CRLF  ; On an Engish (UK) unit.
+The command `$lang,` allows changing the configured language (if available in
+the firmware of the device.) Note that this allows to configure a language
+that is not visible to set in the interface, though in that case the reader
+will display the selected language as Español.
+
+    get-lang-cmd = "$lang?"
+    get-lang-msg = language-code CRLF
+
+    set-lang-cmd = "$lang," language-code
+    set-lang-msg = CRLF
+
+    language-code = pt / es / en / de / fr / it / en-uk / fr-ca / zh / jp /
+                    nl / sv / es-mx / no / dk / fi / el / pl / pt-br / ru /
+                    tr / ar / he
+
+    pt = "0"
+    es = "1"
+    en = "2"  ; US?
+    de = "3"
+    fr = "4"
+    it = "5"
+    en-uk = "6"
+    fr-ca = "7"  ; _Probably_ Canadian French
+    zh = "8"
+    jp = "9"
+    nl = "10"
+    sv = "11"
+    es-mx = "12"  ; Possibly Mexican Spanish?
+    no = "13"
+    dk = "14"
+    fi = "15"
+    el = "16"
+    pl = "17"
+    pt-br = "18"  ; Possibly Brazilian Portuguese
+    ru = "19"
+    tr = "20"
+    ar = "21"
+    he = "22"
 
 #### `$iobstatus?`
 
