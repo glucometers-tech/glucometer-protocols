@@ -320,6 +320,16 @@ When the repeat is "off" (`0`), all other fields are also `0`.
 When the repeat is timer, the hour/minutes are the repeat time from the
 beginning of the reminder.
 
+### Native Glucose Units
+
+The `$uom?` command reports the native unit of measure of the device.
+
+    uom-cmd = "$uom?"
+    uom-msg = uom-mmoll / uom-mgdl CRLF
+
+    uom-mmol = "0"
+    uom-mgdl = "1"
+
 ### Other Commands
 
 The following commands are sent by various software used by the Libre, but their
@@ -332,16 +342,6 @@ marketing regions.
 
     brandname-cmd = "$brandname?"
     brandname-msg = "FreeStyle Libre" CRLF
-
-#### `$uom?`
-
-This is _most likely_ for "Unit Of Measurement".
-
-    uom-cmd = "$uom?"
-    uom-msg = "0" CRLF  ; on a mmol/l device, 1 on mg/dl
-
-The theory of this being the unit of measure is supported by the `$gunits?`
-command reporting `1` for a mg/dL FreeStyle Precision Neo reader.
 
 #### `$marketlev?`
 
