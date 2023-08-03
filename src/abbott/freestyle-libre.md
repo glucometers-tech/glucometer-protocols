@@ -359,35 +359,47 @@ the firmware of the device.) Note that this allows to configure a language
 that is not visible to set in the interface, though in that case the reader
 will display the selected language as Español.
 
+The command `$langset?` reports the list of languages available to set through
+the UI itself.
+
+And similarly the `$langset,` command allows to change the list of available
+languages.
+
     get-lang-cmd = "$lang?"
     get-lang-msg = language-code CRLF
 
     set-lang-cmd = "$lang," language-code
     set-lang-msg = CRLF
 
-    language-code = pt / es / en / de / fr / it / en-uk / fr-ca / zh / jp /
-                    nl / sv / es-mx / no / dk / fi / el / pl / pt-br / ru /
-                    tr / ar / he
+    get-configured-langs-cmd = "$langset?"
+    get-configured-langs-msg = language-code *("," language-code)
 
-    pt = "0"
-    es = "1"
-    en = "2"  ; US?
+    set-configured-langs-cmd = "$langset" 1*("," language-code)
+    set-configured-langs-msg = CRLF
+
+    language-code = pt-br / es-us / en-us / de / fr / it / en-gb / fr-ca /
+                    zh / jp / nl / sv / es-es / no / dk / fi / el / pl /
+                    pt-pt / ru / tr / ar / he
+
+    pt-br = "0"
+    es-us = "1"
+    en-us = "2"
     de = "3"
     fr = "4"
     it = "5"
-    en-uk = "6"
-    fr-ca = "7"  ; _Probably_ Canadian French
+    en-gb = "6"
+    fr-ca = "7"
     zh = "8"
     jp = "9"
     nl = "10"
     sv = "11"
-    es-mx = "12"  ; Possibly Mexican Spanish?
+    es-es = "12"
     no = "13"
     dk = "14"
     fi = "15"
     el = "16"
     pl = "17"
-    pt-br = "18"  ; Possibly Brazilian Portuguese
+    pt-pt = "18"
     ru = "19"
     tr = "20"
     ar = "21"
