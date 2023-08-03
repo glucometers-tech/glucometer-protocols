@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: MIT
 
+-c constraints.txt
+
 # List the required Foliant backends and extensions, as well as other Python packages, e.g. MkDocs theme:
 foliantcontrib.mkdocs
 git+https://github.com/Flameeyes/foliantcontrib.blockdiag

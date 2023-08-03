@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: 2016 The Glucometer Protocols Authors
+#
+# SPDX-License-Identifier: MIT
+
+cython < 3
